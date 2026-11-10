@@ -1,0 +1,88 @@
+/* Ajustes para tablet y ordenador. El móvil (por defecto) no cambia. */
+#app{max-width:28rem}
+.tab{margin-left:auto;margin-right:auto}
+
+/* ---------- Tablet ---------- */
+@media (min-width:768px){
+  #app{max-width:46rem}
+  .vales{grid-template-columns:repeat(2,1fr)}
+  .places{grid-template-columns:repeat(2,1fr)}
+  #map{height:440px}
+}
+
+/* ---------- Ordenador ---------- */
+@media (min-width:1024px){
+  #app{max-width:none;padding:0 3rem 9rem;box-shadow:none;
+    background:linear-gradient(to bottom,var(--bg-a),var(--bg-b) 50%,var(--bg-c))}
+  .tab{max-width:1120px}
+
+  /* efectos de fondo a todo el ancho */
+  #fx-layer{left:0;transform:none;max-width:none;width:100%}
+  .a1{width:520px;height:520px}.a2{width:480px;height:480px}.a3{width:520px;height:520px}
+
+  /* cabecera */
+  #header{max-width:760px;margin:0 auto;padding-top:.6rem}
+  .garland{height:80px}
+  .kicker{font-size:2.1rem}
+  .main-title{font-size:3.4rem}
+  .sub{font-size:1.15rem}
+  .theme-toggle{top:18px;left:0}
+  .counter{padding:1.6rem 1.4rem 1.4rem}
+  .cgrid{gap:.8rem}
+  .cbox{padding:.9rem 0 .7rem}
+  .cbox b{font-size:2.1rem}
+  .cbox small{font-size:.75rem}
+  .counter-phrase{font-size:1.8rem}
+  .chip{font-size:.95rem}
+
+  .section-title{font-size:2.2rem}
+  .section-sub{font-size:1.6rem}
+  .divider{margin:3rem auto;max-width:640px}
+
+  /* línea temporal en zigzag de dos columnas */
+  .timeline{padding-left:0;display:grid;grid-template-columns:1fr 1fr;column-gap:7rem;align-items:start}
+  .timeline::before{left:50%;margin-left:-1.5px}
+  .tl-item{margin-bottom:3.4rem;width:100%;max-width:440px}
+  .tl-item:nth-child(odd){grid-column:1;justify-self:end}
+  .tl-item:nth-child(even){grid-column:2;justify-self:start;margin-top:5rem}
+  .tl-item:nth-child(odd) .tl-node{left:auto;right:calc(-3.5rem - 15px)}
+  .tl-item:nth-child(even) .tl-node{left:calc(-3.5rem - 15px)}
+  .tl-node{font-size:1.6rem;width:34px;top:38px}
+  .polaroid .title{font-size:1.9rem}
+  .polaroid .date{font-size:1.4rem}
+
+  /* mapa */
+  #map{height:560px}
+  .places{grid-template-columns:repeat(3,1fr)}
+
+  /* vales */
+  .vales{grid-template-columns:repeat(3,1fr);gap:1.8rem}
+
+  /* rasca y gana / secreto centrados y más grandes */
+  #scratch{max-width:600px;margin:0 auto}
+  .scratch-frame{height:260px}
+  .scratch-msg p{font-size:2rem}
+  #secret{max-width:640px;margin:0 auto}
+  .secret-card{padding:2.4rem 2rem 2rem}
+  .secret-card h2{font-size:2rem}
+  .hint-tag{font-size:2rem}
+  .secret-lock{width:120px;height:120px}
+  .letter-card{padding:2.8rem 2.2rem 2.2rem}
+  .letter-text{font-size:1.75rem}
+
+  /* modal / postal más grandes */
+  .flip{width:min(80vw,28rem);height:min(82vh,38rem)}
+  .modal-card{width:min(90vw,26rem)}
+  .face.back .back-text{font-size:1.65rem}
+
+  /* barra inferior algo más ancha */
+  .tabbar-inner{max-width:30rem}
+  .tab-btn .ic{font-size:1.5rem}
+  .tab-btn .lb{font-size:.72rem}
+  .tab-btn{cursor:pointer}
+}
+
+@media (min-width:1500px){
+  .tab{max-width:1240px}
+  .main-title{font-size:3.8rem}
+}
