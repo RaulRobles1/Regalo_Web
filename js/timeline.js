@@ -8,8 +8,8 @@ function renderTimeline() {
     const locked = isLocked(r, unlocked);
     const cover = `<div class="lock-cover"><div class="lock-wrap"><span class="bow">🎀</span>${heartLockSVG(false)}</div><p>¡Toca para desbloquear este recuerdo! ✨</p></div>`;
     return `<article class="tl-item reveal" style="--d:${i * 60}ms">
-      <span class="tl-node">💙</span>
-      <div class="polaroid ${i % 2 ? 'rot-r' : 'rot-l'} washi-${i % 3} ${locked ? 'is-locked' : ''}" data-id="${esc(r.id)}" role="button" tabindex="0"
+      <span class="tl-node">${i % 2 ? '❤️' : '💙'}</span>
+      <div class="polaroid ${i % 2 ? 'rot-r' : 'rot-l'} washi-${i % 4} ${locked ? 'is-locked' : ''}" data-id="${esc(r.id)}" role="button" tabindex="0"
            aria-label="${locked ? 'Recuerdo bloqueado' : esc(r.titulo)}">
         <span class="washi"></span>
         <div class="photo">${locked ? cover : img(r.foto, r.titulo)}</div>
@@ -31,7 +31,7 @@ function openMemory(r) {
           <div class="cap"><p class="hand date">${esc(r.fecha)}</p><p class="hand title">${esc(r.titulo)}</p></div>
         </div>
         <div class="face back">
-          <span class="corner c-tl">💙</span><span class="corner c-tr">🤍</span><span class="corner c-bl">🤍</span><span class="corner c-br">💙</span>
+          <span class="corner c-tl">💙</span><span class="corner c-tr">❤️</span><span class="corner c-bl">❤️</span><span class="corner c-br">💙</span>
           <div class="postmark hand">📍 ${esc(r.ubicacion)} · ${esc(r.fecha)}</div>
           <h3 class="back-title">${esc(r.titulo)}</h3>
           <p class="back-text">${esc(r.textoDetras)}</p>
@@ -49,7 +49,7 @@ function openUnlock(r) {
   if (when && when > new Date()) {
     const txt = when.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
     openModal(`<div class="modal-card glass"><div class="secret-lock">${heartLockSVG(false)}</div>
-      <h3>Todavía no, amor 💙</h3><p class="hand q">Este recuerdo se abrirá el ${esc(txt)} ✨</p></div>`);
+      <h3>Todavía no, amor ❤️</h3><p class="hand q">Este recuerdo se abrirá el ${esc(txt)} ✨</p></div>`);
     return;
   }
   if (!r.preguntaDesbloqueo) { unlockMemory(r); return; }
@@ -59,7 +59,7 @@ function openUnlock(r) {
     <p class="hand q">${esc(r.preguntaDesbloqueo)}</p>
     <form id="unlock-form" autocomplete="off">
       <input class="field" id="unlock-input" placeholder="Tu respuesta, amor…" aria-label="Respuesta">
-      <button class="btn" style="margin-top:.8rem;width:100%" type="submit">Desbloquear 💙</button>
+      <button class="btn btn-red" style="margin-top:.8rem;width:100%" type="submit">Desbloquear ❤️</button>
     </form>
     <p class="err" id="unlock-err" hidden>Mmm, esa no es… prueba otra vez 🥺💙</p>
   </div>`);

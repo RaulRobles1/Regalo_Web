@@ -1,4 +1,4 @@
-/* Mapa de recuerdos con Leaflet (corazones latiendo como chinchetas) */
+/* Mapa de recuerdos con Leaflet (corazones rojos y azules latiendo como chinchetas) */
 let _map = null, _markers = [], _mapReady = false;
 
 function popupHTML(p) {
@@ -21,18 +21,38 @@ function renderPlaces() {
   });
 }
 
+function fixMapSize() {
+  [60, 350, 900].forEach(t => setTimeout(() => _map && _map.invalidateSize(), t));
+}
+
 function initMap() {
-  if (_mapReady) { setTimeout(() => _map && _map.invalidateSize(), 60); return; }
+  if (_mapReady) { fixMapSize(); return; }
   _mapReady = true;
   const box = $('#map');
-  if (!window.L) { box.innerHTML = '<p style="padding:2rem;text-align:center">No se pudo cargar el mapa 🥺 Mira la lista de abajo 💙</p>'; return; }
+  if (!window.L) {
+    box.innerHTML = '<p style="padding:2rem;text-align:center">No se pudo cargar el mapa 🥺 Mira la lista de abajo ❤️</p>';
+    return;
+  }
   _map = L.map(box, { zoomControl: false, scrollWheelZoom: false }).setView(CONFIG.lugaresMapa[0].coords, 6);
   L.control.zoom({ position: 'topright' }).addTo(_map);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+
+  // Mapa principal (CARTO). Si fallan varios tiles, cambia solo a OpenStreetMap.
+  const carto = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     maxZoom: 18, attribution: '&copy; OpenStreetMap &copy; CARTO'
   }).addTo(_map);
-  const icon = L.divIcon({ className: '', html: '<div class="map-heart">💙</div>', iconSize: [34, 34], iconAnchor: [17, 30], popupAnchor: [0, -28] });
-  _markers = CONFIG.lugaresMapa.map(p => L.marker(p.coords, { icon }).addTo(_map).bindPopup(popupHTML(p), { maxWidth: 240 }));
+  let errors = 0, swapped = false;
+  carto.on('tileerror', () => {
+    if (swapped || ++errors < 3) return;
+    swapped = true;
+    _map.removeLayer(carto);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(_map);
+  });
+
+  _markers = CONFIG.lugaresMapa.map((p, i) => {
+    const icon = L.divIcon({ className: '', html: `<div class="map-heart">${i % 2 ? '❤️' : '💙'}</div>`, iconSize: [34, 34], iconAnchor: [17, 30], popupAnchor: [0, -28] });
+    return L.marker(p.coords, { icon }).addTo(_map).bindPopup(popupHTML(p), { maxWidth: 240 });
+  });
   if (CONFIG.lugaresMapa.length > 1) _map.fitBounds(CONFIG.lugaresMapa.map(p => p.coords), { padding: [40, 40], maxZoom: 9 });
-  setTimeout(() => _map.invalidateSize(), 120);
+  if ('ResizeObserver' in window) new ResizeObserver(() => _map.invalidateSize()).observe(box);
+  fixMapSize();
 }

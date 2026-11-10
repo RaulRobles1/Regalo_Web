@@ -7,8 +7,10 @@
   renderHeader();
   applyTheme();
   renderTimeline();
+  if (typeof renderJar === 'function') renderJar();
   renderPlaces();
   renderVales();
+  if (typeof renderQuiz === 'function') renderQuiz();
   renderScratch();
   renderSecret();
   observeReveals();
@@ -16,7 +18,7 @@
 
   /* Intro */
   const intro = $('#intro');
-  $('#intro-to').textContent = 'Para ti, ' + CONFIG.pareja.nombreElla + ' 💙';
+  $('#intro-to').textContent = 'Para ti, ' + CONFIG.pareja.nombreElla + ' ❤️';
   if (store.get('introSeen', false)) { intro.remove(); return; }
   let opened = false;
   const open = () => {
