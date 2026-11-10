@@ -1,9 +1,9 @@
-/* Efectos visuales: corazones flotantes, estrellas, rastro al tocar y confeti */
+/* Efectos visuales: corazones flotantes (rojos y azules), estrellas, rastro al tocar y confeti */
 const FX = (() => {
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const FLOATERS = ['💙', '🤍', '🩵', '✨', '🫧', '💗', '⭐', '💙', '🤍'];
-  const SPARKS = ['💙', '✨', '🤍', '🩵', '💫'];
-  const COLORS = ['#7dd3fc', '#bae6fd', '#ffffff', '#fbcfe8', '#a5b4fc', '#38bdf8'];
+  const FLOATERS = ['💙', '❤️', '🤍', '🩵', '✨', '💕', '🫧', '❤️', '💗', '⭐', '💙', '🤍'];
+  const SPARKS = ['💙', '❤️', '✨', '🤍', '💕', '💫'];
+  const COLORS = ['#7dd3fc', '#bae6fd', '#ffffff', '#fb7185', '#e11d48', '#fecdd3', '#a5b4fc', '#38bdf8'];
   const HEART_PATH = 'M167 72c19,-38 37,-56 75,-56 42,0 76,33 76,75 0,76 -76,151 -151,227 -76,-76 -151,-151 -151,-227 0,-42 33,-75 75,-75 38,0 57,18 76,56z';
   let heartShape = null;
   const rand = (a, b) => a + Math.random() * (b - a);
@@ -13,7 +13,7 @@ const FX = (() => {
 
   function spawnFloater(initial) {
     const l = layer();
-    if (!l || l.querySelectorAll('.floater').length > 18) return;
+    if (!l || l.querySelectorAll('.floater').length > 20) return;
     const el = document.createElement('span');
     const dur = rand(10, 20);
     el.className = 'floater';
@@ -72,13 +72,13 @@ const FX = (() => {
     return heartShape;
   }
 
-  /* Rafaga de corazones azules/blancos/rosa */
+  /* Ráfaga de corazones azules, rojos y blancos */
   function burst(opts = {}) {
     if (!window.confetti) return;
     const s = shape();
     confetti(Object.assign({
       particleCount: 60, spread: 70, origin: { x: 0.5, y: 0.65 }, colors: COLORS,
-      shapes: s ? [s, 'circle'] : ['circle'], scalar: 1.6, ticks: 220, zIndex: 30000
+      shapes: s ? [s, s, 'circle'] : ['circle'], scalar: 1.6, ticks: 220, zIndex: 30000
     }, opts));
   }
 

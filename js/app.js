@@ -1,8 +1,13 @@
-/* Núcleo: utilidades, almacenamiento, cabecera + contador, pestañas, modal, tema */
+/* Núcleo: utilidades, almacenamiento, cabecera + contador, pestañas, modal, tema, WhatsApp */
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const norm = s => String(s == null ? '' : s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '');
+const fill = (t, o) => String(t).replace(/\{(\w+)\}/g, (m, k) => (k in o ? o[k] : m));
+
+/* WhatsApp: abre un chat con el número configurado y el texto dado */
+const waLink = text => `https://wa.me/${CONFIG.pareja.telefonoWhatsapp}?text=${encodeURIComponent(text)}`;
+const openWA = text => window.open(waLink(text), '_blank');
 
 const store = {
   get(k, d) { try { const v = localStorage.getItem('3a_' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -11,7 +16,7 @@ const store = {
 };
 
 const FALLBACK_IMG = 'data:image/svg+xml,' + encodeURIComponent(
-  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#bae6fd'/><stop offset='1' stop-color='#c7d2fe'/></linearGradient></defs><rect width='400' height='300' fill='url(#g)'/><text x='200' y='175' font-size='90' text-anchor='middle'>💙</text></svg>");
+  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#bae6fd'/><stop offset='1' stop-color='#fecdd3'/></linearGradient></defs><rect width='400' height='300' fill='url(#g)'/><text x='200' y='175' font-size='90' text-anchor='middle'>❤️</text></svg>");
 function imgFallback(el) { el.onerror = null; el.src = FALLBACK_IMG; }
 const img = (src, alt) => `<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" onerror="imgFallback(this)">`;
 
@@ -19,11 +24,11 @@ let _lockId = 0;
 function heartLockSVG(open) {
   const id = 'hg' + (++_lockId);
   return `<svg viewBox="0 0 120 120" class="heart-lock ${open ? 'open' : ''}" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7185"/><stop offset="1" stop-color="#e11d48"/></linearGradient></defs>
     <path transform="scale(5)" fill="url(#${id})" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
     <g class="shackle"><path d="M44 58 V46 a16 16 0 0 1 32 0 V58" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></g>
     <rect x="36" y="56" width="48" height="34" rx="8" fill="#fff"/>
-    <circle cx="60" cy="70" r="5" fill="#38bdf8"/><rect x="58" y="72" width="4" height="10" rx="2" fill="#38bdf8"/>
+    <circle cx="60" cy="70" r="5" fill="#e11d48"/><rect x="58" y="72" width="4" height="10" rx="2" fill="#e11d48"/>
   </svg>`;
 }
 
@@ -39,14 +44,14 @@ function observeReveals() {
 
 /* ---------- Cabecera + contador ---------- */
 function garlandSVG() {
-  const N = 9, hearts = ['💙', '🤍', '🩵', '💙', '🤍', '💙', '🩵', '🤍', '💙'];
+  const N = 9, hearts = ['💙', '❤️', '🤍', '💙', '❤️', '🩵', '❤️', '🤍', '💙'];
   let t = '';
   for (let i = 0; i < N; i++) {
     const u = (i + 0.5) / N, x = 400 * u, y = (1 - u) ** 2 * 4 + 2 * (1 - u) * u * 56 + u * u * 4;
     t += `<text x="${x.toFixed(1)}" y="${(y + 16).toFixed(1)}" font-size="20" text-anchor="middle" style="animation-delay:${-i * 0.35}s">${hearts[i]}</text>`;
   }
   return `<svg class="garland" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 4 Q200 56 400 4" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-dasharray="4 4"/>${t}</svg>`;
+    <path d="M0 4 Q200 56 400 4" fill="none" stroke="#fb7185" stroke-width="2" stroke-dasharray="4 4"/>${t}</svg>`;
 }
 
 function calendarDiff(a, b) {
@@ -81,7 +86,7 @@ function renderHeader() {
     <h1 class="main-title">${esc(p.tituloHeader)}</h1>
     <p class="sub">${esc(p.fraseHeader)}</p>
     <div class="counter glass">
-      <span class="sp s1">✨</span><span class="sp s2">✨</span><span class="sp s3">💙</span><span class="sp s4">✨</span>
+      <span class="sp s1">✨</span><span class="sp s2">❤️</span><span class="sp s3">💙</span><span class="sp s4">✨</span>
       <div class="cgrid">
         ${[['years', 'Años'], ['months', 'Meses'], ['days', 'Días'], ['hours', 'Horas'], ['minutes', 'Min'], ['seconds', 'Seg']]
           .map(([k, l]) => `<div class="cbox"><b id="c-${k}">0</b><small>${l}</small></div>`).join('')}
@@ -120,7 +125,7 @@ function applyTheme() {
 }
 
 /* ---------- Pestañas ---------- */
-const TABS = ['home', 'map', 'vales', 'secret'];
+const TABS = ['home', 'map', 'quiz', 'vales', 'secret'];
 function showTab(name) {
   const i = TABS.indexOf(name); if (i < 0) return;
   $$('.tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + name));

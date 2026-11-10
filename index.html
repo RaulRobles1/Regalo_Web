@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>3 Años Juntos 💙</title>
 <meta name="theme-color" content="#bae6fd">
-<meta property="og:title" content="3 años juntos 💙">
+<meta property="og:title" content="3 años juntos ❤️">
 <meta property="og:description" content="Un regalo hecho con muchísimo cariño ✨">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💙%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E❤️%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,20 +15,21 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/love.css">
 <link rel="stylesheet" href="css/desktop.css">
 </head>
 <body>
 
-<!-- INTRO: sobre con lacre -->
+<!-- INTRO: sobre con lacre rojo -->
 <div id="intro">
   <div class="intro-inner">
     <p class="hand intro-to" id="intro-to"></p>
     <div class="envelope" id="envelope">
       <div class="env-back"></div>
-      <div class="env-letter"><span>💙</span><p class="hand">Ábreme, amor…</p></div>
+      <div class="env-letter"><span>❤️</span><p class="hand">Ábreme, amor…</p></div>
       <div class="env-front"></div>
       <div class="env-flap"></div>
-      <button class="seal" id="seal" aria-label="Abrir el sobre">💙</button>
+      <button class="seal" id="seal" aria-label="Abrir el sobre">❤️</button>
     </div>
     <p class="hand intro-tap">Toca el sello para abrir ✨</p>
   </div>
@@ -45,7 +46,7 @@
   <section id="tab-home" class="tab active">
     <header id="header" class="text-center pt-2"></header>
 
-    <div class="divider"><span>💙 🤍 💙</span></div>
+    <div class="divider"><span>💙 ❤️ 💙</span></div>
 
     <div class="reveal">
       <h2 class="section-title">Nuestros días importantes</h2>
@@ -53,7 +54,15 @@
     </div>
     <div id="timeline" class="timeline"></div>
 
-    <div class="divider"><span>💙 🤍 💙</span></div>
+    <div class="divider"><span>❤️ 💙 ❤️</span></div>
+
+    <div class="reveal">
+      <h2 class="section-title">El bote de razones</h2>
+      <p class="section-sub hand">Razones por las que te quiero ❤️</p>
+    </div>
+    <div id="jar" class="reveal jar-box"></div>
+
+    <div class="divider"><span>💙 ❤️ 💙</span></div>
 
     <div class="reveal">
       <h2 class="section-title">Rasca y gana</h2>
@@ -61,7 +70,7 @@
     </div>
     <div id="scratch" class="reveal"></div>
 
-    <p class="footer hand">Hecho con 💙 para ti</p>
+    <p class="footer hand">Hecho con ❤️ para ti</p>
   </section>
 
   <!-- MAPA -->
@@ -71,17 +80,37 @@
       <p class="section-sub hand">Cada corazón es un lugar que guardo contigo 📍</p>
     </div>
     <div class="map-window reveal">
-      <div class="window-bar"><i></i><i></i><i></i><span class="hand">nuestros lugares 💙</span></div>
+      <div class="window-bar"><i></i><i></i><i></i><span class="hand">nuestros lugares ❤️</span></div>
       <div id="map"></div>
     </div>
-    <div class="divider"><span>💙 🤍 💙</span></div>
+    <div class="divider"><span>💙 ❤️ 💙</span></div>
     <div id="places" class="places"></div>
   </section>
 
-  <!-- VALES -->
+  <!-- QUIZ -->
+  <section id="tab-quiz" class="tab">
+    <div class="reveal">
+      <h2 class="section-title">Quiz de nuestra historia</h2>
+      <p class="section-sub hand" id="quiz-sub"></p>
+    </div>
+    <div id="quiz"></div>
+  </section>
+
+  <!-- REGALOS -->
   <section id="tab-vales" class="tab">
     <div class="reveal">
-      <h2 class="section-title">Mis regalos para ti</h2>
+      <h2 class="section-title">Regalos y mimos</h2>
+      <p class="section-sub hand">Todo lo que tengo preparado para ti 🎁</p>
+    </div>
+    <div class="gift-grid">
+      <div id="wheel-box" class="reveal"></div>
+      <div id="quick-box" class="reveal"></div>
+    </div>
+
+    <div class="divider"><span>❤️ 💙 ❤️</span></div>
+
+    <div class="reveal">
+      <h2 class="section-title">Mis vales</h2>
       <p class="section-sub hand">Canjea el que quieras, cuando quieras 🎟️</p>
     </div>
     <div id="vales" class="vales"></div>
@@ -99,7 +128,8 @@
     <span class="tab-ind" id="tab-ind"></span>
     <button data-tab="home" class="tab-btn active"><span class="ic">💙</span><span class="lb">Inicio</span></button>
     <button data-tab="map" class="tab-btn"><span class="ic">📍</span><span class="lb">Mapa</span></button>
-    <button data-tab="vales" class="tab-btn"><span class="ic">🎟️</span><span class="lb">Vales</span></button>
+    <button data-tab="quiz" class="tab-btn"><span class="ic">💘</span><span class="lb">Quiz</span></button>
+    <button data-tab="vales" class="tab-btn"><span class="ic">🎁</span><span class="lb">Regalos</span></button>
     <button data-tab="secret" class="tab-btn"><span class="ic">🔐</span><span class="lb">Secreto</span></button>
   </div>
 </nav>
@@ -116,8 +146,10 @@
 <script src="js/fx.js"></script>
 <script src="js/app.js"></script>
 <script src="js/timeline.js"></script>
+<script src="js/extras.js"></script>
 <script src="js/map.js"></script>
 <script src="js/vales.js"></script>
+<script src="js/quiz.js"></script>
 <script src="js/scratch.js"></script>
 <script src="js/secret.js"></script>
 <script src="js/main.js"></script>
