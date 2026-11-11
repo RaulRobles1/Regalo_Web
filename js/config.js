@@ -8,7 +8,7 @@ const CONFIG = {
     nombreElla: "Zayra",
     nombreEl: "Tu amor",                    // cámbialo por tu nombre (firma de la carta)
     fechaInicio: "2023-02-14T00:00:00",     // 14 de febrero de 2023
-    telefonoWhatsapp: "34600000000",        // TU número (sin +) para recibir mensajes, vales y premios
+    telefonoWhatsapp: "34608832550",        // TU número (sin +) para recibir mensajes, vales y premios
     tituloHeader: "¡Felices 3 años, mi amor! ❤️",
     fraseHeader: "3 años creando los recuerdos más bonitos del mundo a tu lado 💙✨",
     fraseContador: "Y cada segundo a tu lado es mi favorito ✨"
