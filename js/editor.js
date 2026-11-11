@@ -266,7 +266,9 @@
 
   section('✨', 'Rasca y gana', 'sorpresa oculta', b => {
     const r = S.rascaYGana;
-    b.append(h('div', { class: 'grid' }, text(r, 'titulo', 'Título'), text(r, 'textoCapa', 'Texto sobre la capa plateada'), text(r, 'mensajeOculto', 'Sorpresa oculta', { area: true, rows: 3 })));
+    b.append(h('div', { class: 'grid' }, text(r, 'titulo', 'Título'), text(r, 'textoCapa', 'Texto sobre la lámina'), text(r, 'mensajeOculto', 'Sorpresa oculta', { area: true, rows: 3 }),
+      text(r, 'textoPista', 'Texto bajo el boleto'), text(r, 'textoBoton', 'Botón al descubrir la sorpresa'),
+      text(r, 'mensajeWhatsApp', 'Mensaje de WhatsApp al descubrirla', { area: true, rows: 2 })));
   });
 
   section('🔐', 'Secreto', 'contraseña, pista y carta', b => {

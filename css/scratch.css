@@ -1,0 +1,43 @@
+/* Rasca y gana: boleto de lotería */
+.tk{--ny:58px;position:relative;max-width:440px;margin:0 auto;padding-bottom:1rem;border-radius:1.5rem;text-align:center;color:#27476e;
+  border:4px solid transparent;
+  background:linear-gradient(180deg,#fff,#fff6f8) padding-box,linear-gradient(135deg,#38bdf8,#fb7185 55%,#38bdf8) border-box;
+  box-shadow:0 18px 34px -14px rgba(225,29,72,.5);
+  -webkit-mask:radial-gradient(circle 11px at 0 var(--ny),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--ny),#0000 98%,#000);-webkit-mask-composite:source-in;
+  mask:radial-gradient(circle 11px at 0 var(--ny),#0000 98%,#000),radial-gradient(circle 11px at 100% var(--ny),#0000 98%,#000);mask-composite:intersect}
+.tk-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.8rem 1.1rem;color:#fff;
+  background:linear-gradient(90deg,#0ea5e9,#6366f1 45%,#e11d48)}
+.tk-logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;letter-spacing:.06em;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.tk-no{font-weight:700;font-size:.78rem;letter-spacing:.12em;background:rgba(255,255,255,.22);padding:.2rem .6rem;border-radius:999px}
+.tk-sub{margin:.65rem 0 .6rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#be123c}
+
+.tk-area{position:relative;height:210px;margin:0 1rem;border-radius:1rem;overflow:hidden;border:3px solid #fecdd3;background:#fff;box-shadow:inset 0 2px 8px rgba(30,64,175,.18)}
+.tk-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;padding:.7rem 1rem;
+  background:radial-gradient(circle at 50% 45%,#fff 0%,#ffe4e6 55%,#e0f2fe 100%)}
+.tk-rays{position:absolute;left:50%;top:50%;width:520px;height:520px;margin:-260px 0 0 -260px;opacity:.9;
+  background:repeating-conic-gradient(rgba(251,113,133,.22) 0 8deg,rgba(255,255,255,0) 8deg 16deg);animation:rays 24s linear infinite}
+@keyframes rays{to{transform:rotate(360deg)}}
+.tk-gift{position:relative;font-size:2.4rem;line-height:1;animation:giftBob 2.4s ease-in-out infinite;filter:drop-shadow(0 6px 8px rgba(225,29,72,.35))}
+@keyframes giftBob{50%{transform:translateY(-6px) rotate(4deg)}}
+.tk-msg{position:relative;margin:.15rem 0 0;font-size:1.65rem;line-height:1.08;font-weight:700;color:#be123c;text-shadow:0 2px 0 #fff,0 0 10px rgba(255,255,255,.9)}
+.tk-prize.on .tk-msg{animation:msgPop .8s cubic-bezier(.3,1.5,.5,1) both}
+.tk-prize.on .tk-gift{animation:giftWin 1s ease-out both,giftBob 2.4s 1s ease-in-out infinite}
+.tk-prize.on .tk-rays{animation-duration:9s}
+@keyframes msgPop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+@keyframes giftWin{0%{transform:scale(.3) rotate(-30deg)}60%{transform:scale(1.35) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
+
+#scratch-canvas,#flake-canvas{position:absolute;inset:0;width:100%;height:100%}
+#scratch-canvas{touch-action:none;cursor:grab;transition:opacity .7s,transform .7s}
+#scratch-canvas:active{cursor:grabbing}
+#scratch-canvas.gone{opacity:0;pointer-events:none;transform:scale(1.06)}
+#flake-canvas{pointer-events:none}
+.tk-shine{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:linear-gradient(115deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.9) 46%,rgba(255,255,255,0) 62%);background-size:260% 100%;animation:foilSweep 3.4s ease-in-out infinite}
+@keyframes foilSweep{0%{background-position:130% 0}60%,100%{background-position:-70% 0}}
+.tk-area.done .tk-shine{display:none}
+
+.tk-meter{height:8px;margin:.8rem 1.2rem 0;border-radius:999px;background:#e0f2fe;overflow:hidden}
+.tk-meter i{display:block;width:0;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#fb7185,#e11d48);transition:width .25s}
+.tk-hint{margin:.5rem 0 0;font-size:1.35rem}
+.tk-after{margin-top:.6rem}
+.tk-after[hidden]{display:none}

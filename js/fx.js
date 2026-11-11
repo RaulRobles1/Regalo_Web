@@ -44,7 +44,7 @@ const FX = (() => {
 
   function initTrail() {
     let last = 0;
-    const onGame = e => !!(e.target && e.target.closest && e.target.closest('#g-canvas'));
+    const onGame = e => !!(e.target && e.target.closest && e.target.closest('#g-canvas, #scratch-canvas'));
     document.addEventListener('pointerdown', e => { if (!onGame(e)) spark(e.clientX, e.clientY, 3); });
     document.addEventListener('pointermove', e => {
       if (onGame(e)) return;
