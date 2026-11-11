@@ -1,0 +1,1 @@
+window.CONFIG_LOCAL = {};

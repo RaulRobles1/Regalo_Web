@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Editor · 3 años juntos 💙</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E✏️%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Playfair+Display:wght@700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+
+<header class="top">
+  <h1>✏️ Editor de tu regalo</h1>
+  <p>Cambia textos, fotos, vales, quiz… sin tocar código. Al guardar se crea <code>js/config.local.js</code> y se copian las fotos a <code>assets/fotos/</code>.</p>
+  <ol class="steps">
+    <li><b>1.</b> Pulsa <b>📁 Elegir carpeta</b> y selecciona la carpeta de este proyecto (solo Chrome/Edge en ordenador).</li>
+    <li><b>2.</b> Edita lo que quieras y pulsa <b>💾 Guardar</b>.</li>
+    <li><b>3.</b> Abre <b>index.html</b> para ver el resultado, y sube los cambios con git cuando estés listo.</li>
+  </ol>
+  <p class="note">¿Otro navegador o el móvil? Usa <b>⬇️ Descargar archivos</b> y pon <code>config.local.js</code> en <code>js/</code> y las fotos en <code>assets/fotos/</code>.</p>
+</header>
+
+<main id="editor"></main>
+
+<div class="bar" role="toolbar">
+  <span id="status" class="status">Sin cambios</span>
+  <button id="btn-folder" type="button" class="btn">📁 Elegir carpeta</button>
+  <button id="btn-save" type="button" class="btn primary">💾 Guardar</button>
+  <button id="btn-dl" type="button" class="btn">⬇️ Descargar archivos</button>
+  <a class="btn link" href="index.html" target="_blank" rel="noopener">👀 Ver la web</a>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script src="js/config.js"></script>
+<script src="js/config.local.js"></script>
+<script src="js/vendor/qrcode.js"></script>
+<script src="js/editor.js"></script>
+</body>
+</html>
