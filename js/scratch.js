@@ -20,15 +20,15 @@ function renderScratch() {
       </div>
       <div class="tk-meter"><i id="tk-bar"></i></div>
       <p class="tk-hint hand" id="tk-hint">${esc(c.textoPista || 'Rasca con el dedo ✨')}</p>
-      <div class="tk-after" id="tk-after" hidden><button class="btn btn-red" id="tk-wa" type="button">${esc(c.textoBoton || 'Contarle que ya la vi 📲')}</button></div>
+      <div class="tk-after" id="tk-after" hidden><button class="btn btn-red" id="tk-wa" type="button">${esc(c.textoBoton || 'Contarle que ya la vi 📲')}</button> <button class="btn" id="tk-again" type="button">Rascar otra vez 🔄</button></div>
     </div>`;
   $('#tk-wa').addEventListener('click', e => {
     const r = e.currentTarget.getBoundingClientRect();
     FX.burst({ particleCount: 50, origin: { x: (r.left + r.width / 2) / innerWidth, y: (r.top + r.height / 2) / innerHeight } });
     openWA(c.mensajeWhatsApp || '¡Hola mi amor! ❤️ Acabo de rascar mi sorpresa y ya sé lo que me espera 😍💙');
   });
+  $('#tk-again').addEventListener('click', () => renderScratch());
   const start = () => initScratch(c);
-  if (store.get('scratched', false)) { showPrize(true); return; }
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
 }
 
@@ -97,7 +97,7 @@ function initScratch(cfg) {
     else if (pct > 0.1 && msgStage < 1) { msgStage = 1; hint.textContent = '¡Vas bien! ✨'; }
   }
   function finish() {
-    if (done) return; done = true; store.set('scratched', true);
+    if (done) return; done = true;
     const m = cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data;
     for (let i = 0; i < 90; i++) { const x = rnd(0, w), y = rnd(0, h); if (m[(((y * dpr) | 0) * cv.width + ((x * dpr) | 0)) * 4 + 3] > 80) spawn(x, y, 1, 2.2); }
     showPrize(false);
