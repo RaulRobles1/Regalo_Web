@@ -1,0 +1,21 @@
+/* Juego de la canasta + barra inferior de 6 pestañas */
+.tabbar-inner{grid-template-columns:repeat(6,1fr);max-width:29rem}
+.tab-ind{width:calc((100% - 12px)/6)}
+.tab-btn .lb{font-size:.55rem}
+
+.game-wrap{max-width:440px;margin:0 auto}
+.game-card{padding:1rem 1rem 1.2rem;text-align:center}
+.game-top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.8rem}
+.game-hud{display:flex;gap:.35rem;font-size:1.3rem;align-items:center}
+.game-hud .pend{opacity:.4;filter:grayscale(1)}
+.game-stage{position:relative;border-radius:1.4rem;overflow:hidden;background:#f1f5fb;border:1px solid var(--card-border)}
+body.night .game-stage{background:#22346e}
+#g-canvas{display:block;width:100%;aspect-ratio:360/560;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+#g-canvas:active{cursor:grabbing}
+#g-toast{position:absolute;left:0;right:0;top:46%;text-align:center;font-family:'Caveat',cursive;font-weight:700;font-size:2.6rem;pointer-events:none;opacity:0}
+#g-toast.show{animation:toastPop 1.15s ease-out}
+#g-toast.ok{color:#e11d48;text-shadow:0 2px 0 #fff,0 0 12px rgba(255,255,255,.9)}
+#g-toast.ko{color:#0369a1;text-shadow:0 2px 0 #fff,0 0 12px rgba(255,255,255,.9)}
+@keyframes toastPop{0%{opacity:0;transform:scale(.5)}20%{opacity:1;transform:scale(1.15)}70%{opacity:1;transform:scale(1)}100%{opacity:0;transform:translateY(-26px) scale(1)}}
+.game-hint{margin:.7rem 0 0;font-size:1.3rem}
+#g-end .prize{margin-top:1rem}

@@ -11,6 +11,7 @@
   renderPlaces();
   renderVales();
   if (typeof renderQuiz === 'function') renderQuiz();
+  if (typeof renderGame === 'function') renderGame();
   renderScratch();
   renderSecret();
   observeReveals();
