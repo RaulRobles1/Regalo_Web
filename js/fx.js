@@ -44,8 +44,10 @@ const FX = (() => {
 
   function initTrail() {
     let last = 0;
-    document.addEventListener('pointerdown', e => spark(e.clientX, e.clientY, 3));
+    const onGame = e => !!(e.target && e.target.closest && e.target.closest('#g-canvas'));
+    document.addEventListener('pointerdown', e => { if (!onGame(e)) spark(e.clientX, e.clientY, 3); });
     document.addEventListener('pointermove', e => {
+      if (onGame(e)) return;
       if (e.pointerType === 'mouse' && !e.buttons) return;
       const now = performance.now();
       if (now - last < 70) return;

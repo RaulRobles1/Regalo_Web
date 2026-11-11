@@ -125,7 +125,7 @@ function applyTheme() {
 }
 
 /* ---------- Pestañas (el orden debe coincidir con el de la barra inferior) ---------- */
-const TABS = ['home', 'map', 'quiz', 'juego', 'vales', 'secret'];
+const TABS = ['home', 'map', 'quiz', 'vales', 'secret'];
 function showTab(name) {
   const i = TABS.indexOf(name); if (i < 0) return;
   $$('.tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + name));

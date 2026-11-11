@@ -97,15 +97,6 @@
     <div id="quiz"></div>
   </section>
 
-  <!-- JUEGO -->
-  <section id="tab-juego" class="tab">
-    <div class="reveal">
-      <h2 class="section-title" id="game-title">Encesta conmigo 🏀</h2>
-      <p class="section-sub hand" id="game-sub"></p>
-    </div>
-    <div id="game"></div>
-  </section>
-
   <!-- REGALOS -->
   <section id="tab-vales" class="tab">
     <div class="reveal">
@@ -129,6 +120,14 @@
   <!-- SECRETO -->
   <section id="tab-secret" class="tab">
     <div id="secret"></div>
+
+    <!-- JUEGO: aparece al desbloquear el secreto -->
+    <div id="game-section" class="game-section" hidden>
+      <div class="divider"><span>❤️ 💙 ❤️</span></div>
+      <h2 class="section-title" id="game-title">Un último reto 🏀</h2>
+      <p class="section-sub hand" id="game-sub"></p>
+      <div id="game"></div>
+    </div>
   </section>
 </main>
 
@@ -139,7 +138,6 @@
     <button data-tab="home" class="tab-btn active"><span class="ic">💙</span><span class="lb">Inicio</span></button>
     <button data-tab="map" class="tab-btn"><span class="ic">📍</span><span class="lb">Mapa</span></button>
     <button data-tab="quiz" class="tab-btn"><span class="ic">💘</span><span class="lb">Quiz</span></button>
-    <button data-tab="juego" class="tab-btn"><span class="ic">🏀</span><span class="lb">Juego</span></button>
     <button data-tab="vales" class="tab-btn"><span class="ic">🎁</span><span class="lb">Regalos</span></button>
     <button data-tab="secret" class="tab-btn"><span class="ic">🔐</span><span class="lb">Secreto</span></button>
   </div>

@@ -1,7 +1,9 @@
-/* Juego de la canasta + barra inferior de 6 pestañas */
-.tabbar-inner{grid-template-columns:repeat(6,1fr);max-width:29rem}
-.tab-ind{width:calc((100% - 12px)/6)}
-.tab-btn .lb{font-size:.55rem}
+/* Juego de la canasta */
+/* El juego vive dentro de la pestaña Secreto: aparece al desbloquearlo */
+.game-section{margin-top:1.5rem}
+.game-section[hidden]{display:none}
+.game-section.game-in{animation:gameIn .9s cubic-bezier(.2,1.2,.4,1)}
+@keyframes gameIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
 
 .game-wrap{max-width:440px;margin:0 auto}
 .game-card{position:relative;padding:8px;border-radius:2rem;

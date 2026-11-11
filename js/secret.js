@@ -1,6 +1,6 @@
 /* Easter egg: carta secreta con contraseña */
 function renderSecret() {
-  if (store.get('secretOpen', false)) renderLetter(false); else renderSecretForm();
+  if (store.get('secretOpen', false)) { renderLetter(false); revealGame(false); } else renderSecretForm();
 }
 
 function renderSecretForm() {
@@ -37,6 +37,7 @@ function unlockSecret() {
   $('#secret-err').hidden = true;
   FX.celebrate(3800);
   setTimeout(() => renderLetter(true), 1500);
+  setTimeout(() => revealGame(true), 1500 + (CONFIG.easterEgg.mensajeSecreto.length * 30) + 900);
 }
 
 function renderLetter(animate) {
@@ -56,4 +57,11 @@ function renderLetter(animate) {
     el.textContent = text.slice(0, ++i);
     if (i < text.length) setTimeout(type, 30); else el.classList.remove('typing');
   })();
+}
+
+/* El juego de la canasta se desbloquea junto con la carta secreta */
+function revealGame(animate) {
+  const sec = document.getElementById('game-section'); if (!sec || !sec.hidden) return;
+  sec.hidden = false;
+  if (animate) { sec.classList.add('game-in'); FX.burst({ particleCount: 50, origin: { x: 0.5, y: 0.85 } }); }
 }

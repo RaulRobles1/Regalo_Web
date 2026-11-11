@@ -2,9 +2,9 @@
    Escena pintada en canvas: pabellón con guirnaldas, parquet en perspectiva, canasta de cristal,
    balón con sombra y estela, red elástica, corazones, cámara lenta y sacudida al encestar. */
 (() => {
-  const W = 360, H = 560, SX = 180, SY = 470, CX = 180, RIMY = 195, RW = 46, R0 = 22;
+  const W = 360, H = 560, MX = 180, SX = 80, SY = 470, CX = 288, RIMY = 235, RW = 46, R0 = 22;  // canasta a la derecha, balón a la izquierda
   // Física y dificultad (ajustables):
-  const G = 0.55, K = 0.19, KX = 0.6, MAXP = 120, MINP = 18, MAXF = 420;
+  const G = 0.46, KY = 0.165, KX = 0.10, MAXP = 120, MINP = 18, MAXF = 520;
   const BOARD = { x: CX - 56, y: RIMY - 92, w: 112, h: 84 };
   const HORIZON = 300, VPY = 110;
   const PALETTE = ['#e11d48', '#fb7185', '#7dd3fc', '#38bdf8', '#ffffff', '#fecdd3'];
@@ -13,12 +13,12 @@
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const lerp = (a, b, t) => a + (b - a) * t;
   const rand = (a, b) => a + Math.random() * (b - a);
-  const radius = y => (y <= RIMY ? R0 * 0.62 : R0 * (0.62 + 0.38 * clamp((y - RIMY) / (SY - RIMY), 0, 1)));
+  const radius = y => (y <= RIMY ? R0 * 0.72 : R0 * (0.72 + 0.28 * clamp((y - RIMY) / (SY - RIMY), 0, 1)));
   const fresh = () => ({
     shots: 0, hits: 0, res: [], phase: 'ready', hidden: false, streak: 0,
     ball: { x: SX, y: SY, vx: 0, vy: 0, rot: 0, scored: false, rim: false, f: 0 },
     drag: null, wait: 0, sway: 0, stretch: 0, flash: 0, shake: 0, cheer: 0, slow: 0,
-    t: 0, toast: null, parts: [], trail: [], appear: 0
+    t: 0, toast: null, parts: [], path: [], appear: 0
   });
 
   function rr(x, a, b, w, h, r) {
@@ -135,8 +135,8 @@
 
   function shoot(px, py) {
     const b = S.ball;
-    b.x = SX; b.y = SY; b.vx = -px * K * KX; b.vy = -py * K; b.scored = false; b.rim = false; b.f = 0;
-    S.trail = []; S.phase = 'fly';
+    b.x = SX; b.y = SY; b.vx = -px * KX; b.vy = -py * KY; b.scored = false; b.rim = false; b.f = 0;
+    S.path = []; S.phase = 'fly';
   }
 
   /* =============== Física (paso fijo 60 fps) =============== */
@@ -144,12 +144,13 @@
     S.t++; S.sway *= 0.96; S.stretch *= 0.9; S.flash *= 0.9; S.shake *= 0.86; if (S.cheer > 0) S.cheer--;
     if (S.appear > 0) S.appear -= 0.08;
     if (S.toast) { S.toast.age++; if (S.toast.age > 80) S.toast = null; }
+    S.path.forEach(p => { p.a++; }); if (S.path.length && S.path[0].a > 170) S.path.shift();
     S.parts = S.parts.filter(p => { p.vy += p.g; p.x += p.vx; p.y += p.vy; p.rot += p.vr; return --p.life > 0; });
 
     if (S.phase === 'fly') {
       const b = S.ball, py0 = b.y;
       b.vy += G; b.x += b.vx; b.y += b.vy; b.rot += b.vx * 0.05; b.f++;
-      S.trail.push({ x: b.x, y: b.y, r: radius(b.y) }); if (S.trail.length > 12) S.trail.shift();
+      if (b.f % 2 === 0) S.path.push({ x: b.x, y: b.y, a: 0 });
       // tablero (rebote)
       if (b.x > BOARD.x && b.x < BOARD.x + BOARD.w && b.y > BOARD.y && b.y < BOARD.y + BOARD.h && b.vy < 0) {
         b.vy = -b.vy * 0.5; b.vx *= 0.8; b.rim = true; S.shake = 4; sparks(b.x, b.y, 7, '#ffffff');
@@ -172,7 +173,7 @@
     } else if (S.phase === 'wait') {
       if (--S.wait <= 0) {
         if (S.shots >= cfg.tiros) endRound();
-        else { S.ball = fresh().ball; S.hidden = false; S.phase = 'aim'; S.appear = 1; S.trail = []; }
+        else { S.ball = fresh().ball; S.hidden = false; S.phase = 'aim'; S.appear = 1; S.path = []; }
       }
     }
   }
@@ -245,7 +246,7 @@
     x.globalAlpha = 1;
 
     // corazones grandes en la pared
-    [[48, 150, 22, '#fb7185'], [312, 130, 26, '#7dd3fc'], [58, 250, 16, '#7dd3fc'], [304, 245, 18, '#fb7185']].forEach(h => {
+    [[48, 150, 22, '#fb7185'], [150, 118, 18, '#7dd3fc'], [58, 250, 16, '#7dd3fc'], [196, 232, 20, '#fb7185']].forEach(h => {
       x.globalAlpha = 0.35; x.fillStyle = h[3]; heart(x, h[0], h[1], h[2]); x.fill();
     });
     x.globalAlpha = 1;
@@ -271,13 +272,13 @@
 
     // marcas de la cancha
     x.fillStyle = 'rgba(251,113,133,.34)';
-    x.beginPath(); x.moveTo(128, HORIZON); x.lineTo(232, HORIZON); x.lineTo(270, 440); x.lineTo(90, 440); x.closePath(); x.fill();
+    x.beginPath(); x.moveTo(CX - 52, HORIZON); x.lineTo(CX + 52, HORIZON); x.lineTo(CX + 90, 440); x.lineTo(CX - 90, 440); x.closePath(); x.fill();
     x.strokeStyle = 'rgba(255,255,255,.9)'; x.lineWidth = 3; x.stroke();
-    x.beginPath(); x.ellipse(180, 440, 90, 24, 0, Math.PI, Math.PI * 2); x.stroke();
-    x.setLineDash([8, 7]); x.beginPath(); x.ellipse(180, 440, 90, 24, 0, 0, Math.PI); x.stroke(); x.setLineDash([]);
+    x.beginPath(); x.ellipse(CX, 440, 90, 24, 0, Math.PI, Math.PI * 2); x.stroke();
+    x.setLineDash([8, 7]); x.beginPath(); x.ellipse(CX, 440, 90, 24, 0, 0, Math.PI); x.stroke(); x.setLineDash([]);
     x.strokeStyle = 'rgba(255,255,255,.7)'; x.lineWidth = 3;
-    x.beginPath(); x.ellipse(180, HORIZON, 178, 205, 0, 0, Math.PI); x.stroke();
-    x.save(); x.translate(180, 520); x.scale(1, 0.42); x.textAlign = 'center'; x.fillStyle = 'rgba(225,29,72,.42)';
+    x.beginPath(); x.ellipse(CX, HORIZON, 178, 205, 0, 0, Math.PI); x.stroke();
+    x.save(); x.translate(205, 525); x.scale(1, 0.42); x.textAlign = 'center'; x.fillStyle = 'rgba(225,29,72,.42)';
     x.font = '700 46px "Playfair Display", serif'; x.fillText('3 AÑOS ❤', 0, 0); x.restore();
 
     // bunting (guirnalda de banderines) arriba
@@ -297,7 +298,7 @@
     sg.addColorStop(0, '#94a3b8'); sg.addColorStop(0.5, '#e2e8f0'); sg.addColorStop(1, '#94a3b8');
     x.fillStyle = sg; x.fillRect(CX - 7, 0, 14, BOARD.y + 4);
     x.strokeStyle = '#94a3b8'; x.lineWidth = 5; x.lineCap = 'round';
-    x.beginPath(); x.moveTo(CX, 50); x.lineTo(BOARD.x + 14, BOARD.y + 4); x.moveTo(CX, 50); x.lineTo(BOARD.x + BOARD.w - 14, BOARD.y + 4); x.stroke();
+    x.beginPath(); x.moveTo(CX, 70); x.lineTo(BOARD.x + 14, BOARD.y + 4); x.moveTo(CX, 70); x.lineTo(BOARD.x + BOARD.w - 14, BOARD.y + 4); x.stroke();
     x.save(); x.shadowColor = 'rgba(30,64,175,.35)'; x.shadowBlur = 14; x.shadowOffsetY = 6;
     rr(x, BOARD.x, BOARD.y, BOARD.w, BOARD.h, 8);
     g = x.createLinearGradient(BOARD.x, BOARD.y, BOARD.x + BOARD.w, BOARD.y + BOARD.h);
@@ -318,8 +319,8 @@
 
   /* =============== Dibujo dinámico =============== */
   function preview(px, py) {
-    const pts = []; let x = SX, y = SY, vx = -px * K * KX, vy = -py * K;
-    for (let f = 1; f <= 48; f++) { vy += G; x += vx; y += vy; if (f % 3 === 0) pts.push({ x, y }); }
+    const pts = []; let x = SX, y = SY, vx = -px * KX, vy = -py * KY;
+    for (let f = 1; f <= 69; f++) { vy += G; x += vx; y += vy; if (f % 3 === 0) pts.push({ x, y }); }
     return pts;
   }
 
@@ -373,11 +374,11 @@
   }
 
   function drawHUD(x) {
-    rr(x, CX - 112, 38, 224, 36, 18);
+    rr(x, MX - 112, 38, 224, 36, 18);
     x.fillStyle = 'rgba(255,255,255,.38)'; x.fill(); x.strokeStyle = 'rgba(255,255,255,.85)'; x.lineWidth = 1.5; x.stroke();
     const n = cfg.tiros, stepX = n > 1 ? 150 / (n - 1) : 0;
     for (let i = 0; i < n; i++) {
-      const cx = CX - 75 + i * stepX, cy = 56, cur = i === S.shots && (S.phase === 'aim' || S.phase === 'fly');
+      const cx = MX - 75 + i * stepX, cy = 56, cur = i === S.shots && (S.phase === 'aim' || S.phase === 'fly');
       if (i < S.res.length) {
         if (S.res[i]) { x.fillStyle = '#e11d48'; heart(x, cx, cy, 8.5); x.fill(); x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.arc(cx - 3, cy - 3, 1.8, 0, 7); x.fill(); }
         else { x.fillStyle = '#94a3b8'; heart(x, cx, cy, 8); x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 1.4; x.beginPath(); x.moveTo(cx, cy - 5); x.lineTo(cx - 2, cy); x.lineTo(cx + 2, cy + 2); x.lineTo(cx, cy + 7); x.stroke(); }
@@ -390,7 +391,7 @@
     }
     if (S.streak >= 2) {
       x.font = '700 22px Caveat, cursive'; x.textAlign = 'center'; x.fillStyle = '#e11d48'; x.strokeStyle = '#fff'; x.lineWidth = 4; x.lineJoin = 'round';
-      const t = '🔥 racha x' + S.streak; x.strokeText(t, CX, 98); x.fillText(t, CX, 98);
+      const t = '🔥 racha x' + S.streak; x.strokeText(t, MX, 98); x.fillText(t, MX, 98);
     }
   }
 
@@ -398,7 +399,7 @@
     const t = S.toast; if (!t) return;
     const a = t.age, pop = a < 12 ? 0.5 + 0.7 * Math.sin((a / 12) * Math.PI * 0.5) : a < 18 ? 1.2 - 0.2 * ((a - 12) / 6) : 1;
     const alpha = a > 58 ? 1 - (a - 58) / 22 : 1, rise = a * 0.45;
-    x.save(); x.globalAlpha = Math.max(0, alpha); x.translate(CX, 350 - rise); x.scale(pop, pop);
+    x.save(); x.globalAlpha = Math.max(0, alpha); x.translate(MX, 350 - rise); x.scale(pop, pop);
     x.textAlign = 'center'; x.lineJoin = 'round'; x.font = '700 52px Caveat, cursive';
     x.strokeStyle = '#fff'; x.lineWidth = 9; x.strokeText(t.text, 0, 0);
     const g = x.createLinearGradient(0, -40, 0, 8);
@@ -446,14 +447,16 @@
     const b = S.ball, aim = drawAim(x);
     // sombra en el suelo
     if (!S.hidden) {
-      const prog = S.phase === 'fly' ? clamp(b.f / 55, 0, 1) : 0;
-      const sy = lerp(SY + R0 + 10, 346, prog), hgt = S.phase === 'fly' ? clamp((sy - b.y) / 420, 0, 1) : 0;
+      const prog = S.phase === 'fly' ? clamp((b.x - SX) / (CX - SX), 0, 1) : 0;
+      const sy = lerp(SY + R0 + 10, 352, prog), hgt = S.phase === 'fly' ? clamp((sy - b.y) / 420, 0, 1) : 0;
       x.fillStyle = 'rgba(90,40,10,' + (0.22 - hgt * 0.12) + ')'; x.beginPath();
       x.ellipse(S.phase === 'fly' ? b.x : SX, sy, R0 * (0.95 - hgt * 0.4) * (1 - prog * 0.35), 5 * (1 - prog * 0.3), 0, 0, 7); x.fill();
     }
     drawRim(x, false);
     // estela
-    if (S.phase === 'fly') S.trail.forEach((p, i) => { x.fillStyle = 'rgba(251,146,60,' + (i / S.trail.length) * 0.28 + ')'; x.beginPath(); x.arc(p.x, p.y, p.r * (0.4 + 0.6 * i / S.trail.length), 0, 7); x.fill(); });
+    x.lineWidth = 1.4; x.strokeStyle = 'rgba(29,78,216,.85)'; x.fillStyle = '#fff';
+    S.path.forEach(p => { x.globalAlpha = Math.max(0, 1 - p.a / 170); x.beginPath(); x.arc(p.x, p.y, 3.8, 0, 7); x.fill(); x.stroke(); });
+    x.globalAlpha = 1;
     // balón
     if (!S.hidden) {
       if (aim.d) drawBall(x, aim.bx, aim.by, R0, aim.d.px * 0.01, 0.04 * clamp(Math.hypot(aim.d.px, aim.d.py) / MAXP, 0, 1));
@@ -480,10 +483,10 @@
       x.strokeStyle = pg; x.beginPath(); x.arc(aim.bx, aim.by, R0 + 11, -Math.PI / 2, -Math.PI / 2 + f * Math.PI * 2); x.stroke();
       if (aim.d.py > 0 && L >= MINP) {
         const pts = preview(aim.d.px, aim.d.py);
-        x.shadowColor = 'rgba(255,255,255,.9)'; x.shadowBlur = 8;
+        x.shadowBlur = 0;
         pts.forEach((p, i) => {
-          x.globalAlpha = 0.98 - (i / pts.length) * 0.55; x.fillStyle = i % 2 ? '#7dd3fc' : '#fb7185';
-          x.beginPath(); x.arc(p.x, p.y, Math.max(2.2, 5 - i * 0.16), 0, 7); x.fill();
+          x.globalAlpha = 1 - (i / pts.length) * 0.35; x.fillStyle = '#ffffff'; x.strokeStyle = 'rgba(29,78,216,.85)'; x.lineWidth = 1.4;
+          x.beginPath(); x.arc(p.x, p.y, Math.max(2.4, 4.4 - i * 0.07), 0, 7); x.fill(); x.stroke();
         });
         x.shadowBlur = 0; x.globalAlpha = 1;
       }
@@ -491,9 +494,9 @@
       // mano de ayuda
       const k = (Math.sin(S.t * 0.07) + 1) / 2;
       x.font = '34px serif'; x.textAlign = 'center'; x.globalAlpha = 0.95;
-      x.fillText('👇', SX + 62, SY + 10 + k * 26);
+      x.fillText('👆', SX + 14 - k * 36, SY + 28 + k * 36);
       x.strokeStyle = 'rgba(255,255,255,.7)'; x.lineWidth = 3; x.setLineDash([2, 8]);
-      x.beginPath(); x.moveTo(SX + 62, SY - 14); x.lineTo(SX + 62, SY + 54); x.stroke(); x.setLineDash([]);
+      x.beginPath(); x.moveTo(SX - 6, SY + 8); x.lineTo(SX - 46, SY + 52); x.stroke(); x.setLineDash([]);
       x.globalAlpha = 1;
     }
 
