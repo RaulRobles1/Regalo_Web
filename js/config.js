@@ -1,5 +1,5 @@
 /* =====================================================================
-   CONFIG: AQUÍ EDITAS TODO (textos, fechas, fotos, vales, quiz, contraseña).
+   CONFIG: AQUÍ EDITAS TODO (textos, fechas, fotos, vales, quiz, juego, contraseña).
    El resto de archivos solo leen de este objeto.
    Fotos: pon las tuyas en /assets y cámbialas, p. ej. "assets/foto1.jpg".
    ===================================================================== */
@@ -104,6 +104,22 @@ const CONFIG = {
     ],
     premio: "Premio por pleno: un beso gigante y cena donde tú quieras 💋🍽️",
     mensajeWhatsApp: "¡Hola mi amor! ❤️ He hecho el quiz de nuestra historia y he sacado {puntos}/{total} 💙✨"
+  },
+
+  /* ---------- Juego de la canasta ----------
+     Arrastra el balón hacia abajo y suéltalo. Si acierta {aciertosParaPremio} de {tiros}, aparece el botón
+     para avisarte por WhatsApp (el mensaje sale escrito; ella solo pulsa enviar). */
+  juego: {
+    titulo: "Encesta conmigo 🏀",
+    subtitulo: "Tira del balón hacia atrás y mira el recorrido ❤️",
+    tiros: 5,
+    aciertosParaPremio: 5,
+    pelotaImg: "",                            // vacío = balón dibujado; o pon una imagen, p. ej. "assets/pelota.png"
+    textoPanel: "Encesta {n} de {n}",
+    textoPanelSub: "y gana tu sorpresa",
+    textoPremio: "¡PLENO, mi amor! Has ganado un beso gigante y una noche a tu gusto 💋🏆",
+    textoFallo: "Casi… necesitas {n} aciertos para el premio. ¡Otra vez! 💪",
+    mensajeWhatsApp: "¡Hola mi amor! 🏀❤️ He metido {aciertos}/{tiros} canastas en nuestro juego de aniversario. ¡Quiero mi premio! 💙"
   },
 
   /* ---------- Ruleta de premios (cada giro se puede reclamar por WhatsApp) ---------- */
