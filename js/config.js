@@ -111,13 +111,13 @@ const CONFIG = {
      para avisarte por WhatsApp (el mensaje sale escrito; ella solo pulsa enviar). */
   juego: {
     titulo: "Encesta conmigo 🏀",
-    subtitulo: "Tira del balón hacia atrás y mira el recorrido ❤️",
+    subtitulo: "Tira hacia atrás y suelta ❤️",
     tiros: 5,
     aciertosParaPremio: 5,
     pelotaImg: "",                            // vacío = balón dibujado; o pon una imagen, p. ej. "assets/pelota.png"
     textoPanel: "Encesta {n} de {n}",
     textoPanelSub: "y gana tu sorpresa",
-    textoPremio: "¡PLENO, mi amor! Has ganado un beso gigante y una noche a tu gusto 💋🏆",
+    textoPremio: "Has ganado un beso gigante y una noche a tu gusto, mi amor 💋",
     textoFallo: "Casi… necesitas {n} aciertos para el premio. ¡Otra vez! 💪",
     mensajeWhatsApp: "¡Hola mi amor! 🏀❤️ He metido {aciertos}/{tiros} canastas en nuestro juego de aniversario. ¡Quiero mi premio! 💙"
   },
