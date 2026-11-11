@@ -224,14 +224,17 @@ const CONFIG = {
   ],
 
 
-  /* ══════════════ 10. RASCA Y GANA (pestaña Inicio) ═════════════════════════ */
+  /* ══════════════ 10. RASCA Y GANA (pestaña Inicio) ═════════════════════════
+     Boleto sobrio, de lámina plateada. Hay que rascar casi toda la zona (82 %) para
+     descubrirlo: se puede ajustar con SCRATCH_REVEAL al principio de js/scratch.js.
+     ═══════════════════════════════════════════════════════════════════════════ */
   rascaYGana: {
-    titulo: "✨ Rasca con el dedo para ver tu sorpresa ✨",
-    textoCapa: "✨ Rasca aquí con el dedo, amor ✨",    // texto sobre la capa plateada
-    mensajeOculto: "Ponte guapa que hoy nos vamos a celebrar nuestros 3 años a un sitio muy especial 💙🥂",   // ✏️ EDITA · la sorpresa
-    textoPista: "Rasca con el dedo ✨",         // texto bajo el boleto antes de rascar
-    textoBoton: "Contarle que ya la vi 📲",     // botón que sale al descubrir la sorpresa
-    mensajeWhatsApp: "¡Hola mi amor! ❤️ Acabo de rascar mi sorpresa y ya sé lo que me espera 😍💙"   // ✏️ EDITA · mensaje que te llega por WhatsApp
+    titulo: "Rasca para ver tu sorpresa",          // texto bajo el título de la sección
+    textoCapa: "RASCA AQUÍ",                       // texto grabado sobre la lámina plateada
+    mensajeOculto: "Ponte guapa que hoy nos vamos a celebrar nuestros 3 años a un sitio muy especial",   // ✏️ EDITA · la sorpresa
+    textoPista: "Rasque la zona plateada",          // texto bajo el boleto antes de rascar
+    textoBoton: "Avisar por WhatsApp",              // botón que sale al descubrir la sorpresa
+    mensajeWhatsApp: "Hola, ya he rascado el boleto. Estoy deseando saber más 😊"   // ✏️ EDITA · mensaje que te llega por WhatsApp
   },
 
 
