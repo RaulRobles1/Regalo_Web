@@ -35,6 +35,7 @@ function initMap() {
   }
   _map = L.map(box, { zoomControl: false, scrollWheelZoom: false }).setView(CONFIG.lugaresMapa[0].coords, 6);
   L.control.zoom({ position: 'topright' }).addTo(_map);
+  _map.attributionControl.setPrefix(false);
 
   // Mapa principal (CARTO). Si fallan varios tiles, cambia solo a OpenStreetMap.
   const carto = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {

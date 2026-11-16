@@ -10,7 +10,8 @@
   if (typeof renderJar === 'function') renderJar();
   if (typeof renderMore === 'function') renderMore();
   renderPlaces();
-  renderVales();
+  renderQuick();
+  if (typeof renderPlay === 'function') renderPlay();
   if (typeof renderQuiz === 'function') renderQuiz();
   if (typeof renderGame === 'function') renderGame();
   renderScratch();

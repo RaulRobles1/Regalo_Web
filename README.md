@@ -1,6 +1,6 @@
 # 3 Años Juntos 💙❤️
 
-Web app romántica (mobile-first) para celebrar el 3er aniversario: contador en tiempo real, línea temporal con polaroids y cápsulas bloqueadas, mapa de recuerdos, quiz de la relación, ruleta de premios, botón del amor y vales (todo con aviso por WhatsApp), rasca y gana y una carta secreta con contraseña que desbloquea un juego de baloncesto.
+Web app romántica (mobile-first) para celebrar el 3er aniversario: contador en tiempo real, línea temporal con polaroids y cápsulas bloqueadas, mapa y álbum de recuerdos, cartas «Abre cuando…», quiz, juego de parejas, rasca y gana, y una carta secreta con contraseña que desbloquea un juego de baloncesto. Un recorrido de sorpresas lleva a una sorpresa final.
 
 ## 👉 Cómo editarla
 Lee **[EDITAR.md](EDITAR.md)**: qué cambiar y dónde, cómo poner tus fotos, cómo publicar y cómo usar el QR.

@@ -88,6 +88,7 @@ function renderHeader() {
   $('#header').innerHTML = `
     <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar modo día/noche">🌙</button>
     ${garlandSVG()}
+    ${p.fotoPortada ? `<div class="hero-photo"><img src="${esc(p.fotoPortada)}" alt="" onerror="this.parentNode.remove()"></div>` : ''}
     <p class="hand kicker">Para ti, ${esc(p.nombreElla)}</p>
     <h1 class="main-title">${titleHTML(p.tituloHeader)}</h1>
     <p class="sub">${esc(p.fraseHeader)}</p>
@@ -131,7 +132,7 @@ function applyTheme() {
 }
 
 /* ---------- Pestañas (el orden debe coincidir con el de la barra inferior) ---------- */
-const TABS = ['home', 'historia', 'cartas', 'vales', 'secret'];
+const TABS = ['home', 'historia', 'cartas', 'juegos', 'secret'];
 function showTab(name) {
   const i = TABS.indexOf(name); if (i < 0) return;
   $$('.tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + name));

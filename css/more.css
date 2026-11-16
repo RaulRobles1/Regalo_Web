@@ -91,3 +91,38 @@ body.night .num-val{color:#bae6fd}body.night .num-card.n1 .num-val{color:#fda4af
   .daily-text{font-size:2.1rem}
   .env-t{font-size:1.15rem}
 }
+
+/* ---------- Portada: foto redonda ---------- */
+.hero-photo{width:132px;height:132px;margin:.2rem auto .5rem;padding:5px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#fb7185);box-shadow:0 14px 28px -12px rgba(225,29,72,.55)}
+.hero-photo img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:4px solid #fff;background:#e0f2fe}
+
+/* ---------- Álbum ---------- */
+.gallery{columns:2;column-gap:.8rem;max-width:900px;margin:0 auto}
+.gal{display:block;width:100%;margin:0 0 .8rem;padding:7px 7px 9px;border:none;background:#fff;border-radius:4px;break-inside:avoid;box-shadow:0 10px 20px -12px rgba(20,33,61,.55);transition:transform .2s}
+.gal.r0{transform:rotate(-1.2deg)}.gal.r2{transform:rotate(1.1deg)}
+.gal.reveal.in:hover{transform:rotate(0) scale(1.03)}
+.gal img{width:100%;border-radius:2px;background:#e0f2fe;min-height:90px;object-fit:cover}
+.gal span{display:block;font-size:1.15rem;padding-top:.25rem;line-height:1.1}
+.lightbox{display:flex;align-items:center;gap:.3rem;max-width:96vw}
+.lightbox figure{position:relative;margin:0;padding:10px 10px 12px;background:#fff;border-radius:6px;box-shadow:0 24px 50px -12px rgba(0,0,0,.6);text-align:center;animation:paperIn .35s ease}
+.lightbox img{max-width:min(78vw,640px);max-height:68vh;border-radius:3px;min-width:160px;min-height:120px;object-fit:contain;background:#e0f2fe}
+.lightbox figcaption{font-size:1.5rem;padding-top:.4rem}
+.lb-count{display:block;font-size:.7rem;font-weight:700;color:#7b8ba3;margin-top:.2rem}
+.lb-nav{flex:none;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:#0369a1;font-size:1.5rem;line-height:1}
+
+/* ---------- Parejas ---------- */
+.mem-card{max-width:440px;margin:0 auto;padding:1rem}
+.mem-top{display:flex;justify-content:space-between;margin-bottom:.8rem}
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.mem{aspect-ratio:1;padding:0;border:none;background:none;perspective:600px}
+.mem-in{position:relative;display:block;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.mem.on .mem-in,.mem.ok .mem-in{transform:rotateY(180deg)}
+.mem-back,.mem-front{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:.8rem;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.mem-back{color:#fff;font-size:1.4rem;background:linear-gradient(135deg,#38bdf8,#6366f1 55%,#e11d48);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35),0 6px 12px -6px rgba(30,64,175,.6)}
+.mem-front{transform:rotateY(180deg);background:#fff;border:2px solid #bae6fd;font-size:1.9rem}
+.mem-front img{width:100%;height:100%;object-fit:cover}
+.mem.ok .mem-front{border-color:#fb7185;box-shadow:0 0 0 3px rgba(251,113,133,.3)}
+.mem.ok{animation:memOk .5s}
+@keyframes memOk{50%{transform:scale(1.1)}}
+@media (min-width:768px){.gallery{columns:3}}
+@media (min-width:1024px){.gallery{columns:4}.hero-photo{width:160px;height:160px}}

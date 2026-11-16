@@ -22,9 +22,9 @@ function journeySteps() {
   if (locked.length) steps.push({ tab: 'historia', txt: 'Desbloquea los recuerdos secretos', done: locked.every(r => u.has(r.id)) });
   if ((CONFIG.abreCuando || []).length) steps.push({ tab: 'cartas', txt: 'Abre una carta', done: store.get('cartasLeidas', []).length > 0 });
   if ((CONFIG.razones || []).length) steps.push({ tab: 'cartas', txt: 'Saca una razón del bote', done: store.get('razonVista', false) });
-  if (CONFIG.quiz) steps.push({ tab: 'vales', go: 'sec-quiz', txt: 'Completa el quiz', done: store.get('quizBest', null) != null });
-  if (CONFIG.ruleta) steps.push({ tab: 'vales', go: 'sec-ruleta', txt: 'Gira la ruleta', done: !!store.get('ruletaPremio', null) });
-  steps.push({ tab: 'vales', go: 'sec-rasca', txt: 'Rasca el boleto', done: store.get('rascaVisto', false) });
+  if (CONFIG.quiz) steps.push({ tab: 'juegos', go: 'sec-quiz', txt: 'Completa el quiz', done: store.get('quizBest', null) != null });
+  if (CONFIG.memoria) steps.push({ tab: 'juegos', go: 'sec-memoria', txt: 'Encuentra todas las parejas', done: store.get('memoriaBest', null) != null });
+  steps.push({ tab: 'juegos', go: 'sec-rasca', txt: 'Rasca el boleto', done: store.get('rascaVisto', false) });
   steps.push({ tab: 'secret', txt: 'Descubre el secreto', done: secret });
   if (CONFIG.juego) steps.push({ tab: 'secret', txt: secret ? 'Gana el reto de la canasta' : 'Un reto oculto…', done: !!store.get('juegoGanado', null) });
   return steps;

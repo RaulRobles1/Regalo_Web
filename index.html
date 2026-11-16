@@ -94,6 +94,15 @@
       <div id="map"></div>
     </div>
     <div id="places" class="places"></div>
+
+    <div id="gallery-sec">
+      <div class="divider"><span>❤️ 💙 ❤️</span></div>
+      <div class="reveal">
+        <h2 class="section-title">Álbum</h2>
+        <p class="section-sub hand">Toca una foto para verla en grande</p>
+      </div>
+      <div id="gallery" class="gallery"></div>
+    </div>
   </section>
 
   <!-- CARTAS -->
@@ -115,10 +124,10 @@
     <div id="quick-box" class="reveal quick-wrap"></div>
   </section>
 
-  <!-- REGALOS -->
-  <section id="tab-vales" class="tab">
-    <nav class="subnav" aria-label="Secciones de regalos">
-      <button data-go="sec-quiz">💘 Quiz</button><button data-go="sec-ruleta">🎡 Ruleta</button><button data-go="sec-rasca">🎟️ Rasca</button><button data-go="sec-vales">🎁 Vales</button>
+  <!-- JUEGOS -->
+  <section id="tab-juegos" class="tab">
+    <nav class="subnav" aria-label="Juegos">
+      <button data-go="sec-quiz">💘 Quiz</button><button data-go="sec-memoria">🃏 Parejas</button><button data-go="sec-rasca">🎟️ Rasca</button>
     </nav>
 
     <div id="sec-quiz" class="reveal">
@@ -128,8 +137,11 @@
     <div id="quiz"></div>
 
     <div class="divider"><span>❤️ 💙 ❤️</span></div>
-    <div id="sec-ruleta"></div>
-    <div id="wheel-box" class="reveal wheel-wrap-outer"></div>
+    <div id="sec-memoria" class="reveal">
+      <h2 class="section-title" id="mem-title">Parejas</h2>
+      <p class="section-sub hand" id="mem-sub"></p>
+    </div>
+    <div id="memory" class="reveal"></div>
 
     <div class="divider"><span>💙 ❤️ 💙</span></div>
     <div id="sec-rasca" class="reveal">
@@ -137,13 +149,6 @@
       <p class="section-sub plain" id="scratch-title"></p>
     </div>
     <div id="scratch" class="reveal"></div>
-
-    <div class="divider"><span>❤️ 💙 ❤️</span></div>
-    <div id="sec-vales" class="reveal">
-      <h2 class="section-title">Mis vales</h2>
-      <p class="section-sub hand">Canjea el que quieras, cuando quieras</p>
-    </div>
-    <div id="vales" class="vales"></div>
   </section>
 
   <!-- SECRETO -->
@@ -167,7 +172,7 @@
     <button data-tab="home" class="tab-btn active"><span class="ic">💙</span><span class="lb">Inicio</span></button>
     <button data-tab="historia" class="tab-btn"><span class="ic">📸</span><span class="lb">Historia</span></button>
     <button data-tab="cartas" class="tab-btn"><span class="ic">💌</span><span class="lb">Cartas</span></button>
-    <button data-tab="vales" class="tab-btn"><span class="ic">🎁</span><span class="lb">Regalos</span></button>
+    <button data-tab="juegos" class="tab-btn"><span class="ic">🎮</span><span class="lb">Juegos</span></button>
     <button data-tab="secret" class="tab-btn"><span class="ic">🔐</span><span class="lb">Secreto</span></button>
   </div>
 </nav>
@@ -189,8 +194,8 @@
 <script src="js/extras.js"></script>
 <script src="js/more.js"></script>
 <script src="js/map.js"></script>
-<script src="js/vales.js"></script>
 <script src="js/quiz.js"></script>
+<script src="js/play.js"></script>
 <script src="js/game.js"></script>
 <script src="js/scratch.js"></script>
 <script src="js/secret.js"></script>

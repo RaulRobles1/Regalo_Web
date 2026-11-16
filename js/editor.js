@@ -140,6 +140,7 @@
       text(p, 'nombreEl', 'Tu nombre', { help: 'Firma de la carta secreta' }),
       fld('Día que empezasteis', fechaInp, 'Alimenta el contador de tiempo juntos'),
       h('div', { class: 'fld' }, text(p, 'telefonoWhatsapp', 'Tu WhatsApp', { help: 'Prefijo de país y sin "+" · 34 = España', onInput: checkTel }), warn),
+      photo(p, 'fotoPortada', 'Foto de la portada (redonda)', { cls: 'full', help: 'Vacío = sin foto' }),
       text(p, 'tituloHeader', 'Título de la portada', { cls: 'full' }),
       text(p, 'fraseHeader', 'Frase bajo el título', { cls: 'full' }),
       text(p, 'fraseContador', 'Frase bajo el contador', { cls: 'full' })));
@@ -230,18 +231,6 @@
       photo(j, 'pelotaImg', 'Foto para la pelota (opcional)', { cls: 'full', help: 'Vacío = balón de baloncesto dibujado' })));
   });
 
-  section('🎡', 'Ruleta de premios', 'se reclaman por WhatsApp', b => {
-    const r = S.ruleta;
-    b.append(h('div', { class: 'grid two' }, text(r, 'titulo', 'Título'), text(r, 'subtitulo', 'Subtítulo'), text(r, 'boton', 'Texto del botón'), h('div', { class: 'fld' }, h('label', {}, ' '), check(r, 'unaVezAlDia', 'Solo un giro al día'))));
-    const box = h('div'); b.append(box);
-    repeater(box, r.premios, {
-      title: (p, i) => `${i + 1}. ${p.emoji || ''} ${p.texto || ''}`, add: '➕ Añadir premio', min: 4, max: 12,
-      make: () => ({ emoji: '🎁', texto: '' }),
-      render: (c, p) => c.append(h('div', { class: 'grid two' }, text(p, 'emoji', 'Emoji'), text(p, 'texto', 'Premio')))
-    });
-    b.append(text(r, 'mensajeWhatsApp', 'Mensaje de WhatsApp', { area: true, rows: 2, help: '{premio} se rellena solo' }));
-  });
-
   section('💌', 'Botón del amor', 'mensajes rápidos por WhatsApp', b => {
     const m = S.mensajesRapidos;
     b.append(h('div', { class: 'grid two' }, text(m, 'titulo', 'Título'), text(m, 'subtitulo', 'Subtítulo'), text(m, 'placeholder', 'Texto de la caja libre', { cls: 'full' })));
@@ -250,17 +239,6 @@
       title: (x, i) => `${i + 1}. ${x.emoji || ''} ${x.label || ''}`, add: '➕ Añadir botón', max: 12,
       make: () => ({ emoji: '💙', label: '', msg: '' }),
       render: (c, x) => c.append(h('div', { class: 'grid two' }, text(x, 'emoji', 'Emoji'), text(x, 'label', 'Texto del botón'), text(x, 'msg', 'Mensaje que se envía', { area: true, rows: 2, cls: 'full' })))
-    });
-  });
-
-  section('🎟️', 'Vales', 'se canjean por WhatsApp', b => {
-    const box = h('div'); b.append(box);
-    repeater(box, S.vales, {
-      title: (v, i) => `${i + 1}. ${v.titulo || 'Vale'}`, add: '➕ Añadir vale',
-      make: arr => ({ id: 'vale-' + (arr.length + 1), titulo: '', descripcion: '', icono: 'heart' }),
-      render: (c, v) => c.append(h('div', { class: 'grid two' }, text(v, 'titulo', 'Título'),
-        select(v, 'icono', 'Icono', [['heart', '❤️ Corazón'], ['plane', '✈️ Avión'], ['sparkles', '✨ Brillos'], ['gift', '🎁 Regalo'], ['cake', '🍰 Tarta'], ['movie', '🍿 Peli']]),
-        text(v, 'descripcion', 'Descripción', { area: true, rows: 2, cls: 'full' })))
     });
   });
 
@@ -282,6 +260,21 @@
       text(e, 'tituloSecreto', 'Título de la carta', { cls: 'full' }),
       text(e, 'mensajeSecreto', 'Carta secreta', { area: true, rows: 7, cls: 'full' }),
       photo(e, 'fotoSecreta', 'Foto secreta', { cls: 'full' })));
+  });
+
+  section('🖼️', 'Álbum', 'galería de fotos en Historia', b => {
+    if (!S.galeria) S.galeria = [];
+    const box = h('div'); b.append(box);
+    repeater(box, S.galeria, { title: (g, i) => `${i + 1}. ${g.pie || 'Foto'}`, add: '➕ Añadir foto', make: () => ({ foto: '', pie: '' }),
+      render: (c, g) => c.append(photo(g, 'foto', 'Foto'), text(g, 'pie', 'Pie de foto (opcional)')) });
+  });
+
+  section('🃏', 'Parejas', 'juego de memoria', b => {
+    if (!S.memoria) S.memoria = { fichas: [] };
+    const m = S.memoria;
+    b.append(h('div', { class: 'grid' }, text(m, 'titulo', 'Título'), text(m, 'subtitulo', 'Subtítulo'),
+      lines(m, 'fichas', 'Fichas', { rows: 8, help: 'Una por línea, 6 u 8 · un emoji o la ruta de una foto (assets/fotos/mem1.jpg)' }),
+      text(m, 'mensajeFinal', 'Mensaje al terminar'), text(m, 'mensajeWhatsApp', 'Mensaje de WhatsApp', { help: '{intentos} se rellena solo' })));
   });
 
   section('🗒️', 'Nota del día', 'una distinta cada día en Inicio', b => {
@@ -367,7 +360,6 @@
       else { r.bloqueado = true; delete r.desbloqueoFecha; r.respuestaCorrecta = [].concat(r.respuestaCorrecta).filter(Boolean); }
       delete r._modo;
     });
-    s.vales.forEach((v, i) => { v.id = 'vale-' + (i + 1); });
     s.quiz.preguntas.forEach(p => { p.correcta = Number(p.correcta) || 0; p.opciones = p.opciones.map(o => String(o)); });
     s.lugaresMapa.forEach(l => { l.coords = l.coords.map(Number); });
     s.juego.tiros = Number(s.juego.tiros) || 5; s.juego.aciertosParaPremio = Math.min(Number(s.juego.aciertosParaPremio) || s.juego.tiros, s.juego.tiros);
@@ -382,7 +374,6 @@
     const p = [], tel = String(S.pareja.telefonoWhatsapp || '');
     if (!/^\d{9,15}$/.test(tel)) p.push('El teléfono debe ser solo números con prefijo de país (ej. 34608832550)');
     if (!S.easterEgg.passwordsValidas.length) p.push('Falta al menos una contraseña válida en Secreto');
-    if (S.ruleta.premios.length < 4) p.push('La ruleta necesita al menos 4 premios');
     return p;
   }
 

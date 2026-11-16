@@ -4,12 +4,12 @@
    ╠══════════════════════════════════════════════════════════════════════════╣
    ║  ÍNDICE                                                                   ║
    ║   0. Fotos (cómo ponerlas)        6. Juego de la canasta                  ║
-   ║   1. Datos de la pareja           7. Ruleta de premios                    ║
+   ║   1. Datos de la pareja           7. (libre)                              ║
    ║   2. Recuerdos (línea temporal)   8. Botón del amor (mensajes rápidos)    ║
-   ║   3. Mapa de recuerdos            9. Vales                                ║
+   ║   3. Mapa de recuerdos            9. Parejas (memoria)                    ║
    ║   4. Bote de razones             10. Rasca y gana                         ║
    ║   5. Quiz de la relación         11. Secreto (contraseña y carta)         ║
-   ║  12. Nota del día   13. Números   14. Cartas «Abre cuando»   15. Final    ║
+   ║  12. Nota del día  13. Números  14. Cartas  15. Final  16. Álbum          ║
    ╠══════════════════════════════════════════════════════════════════════════╣
    ║  REGLAS RÁPIDAS                                                           ║
    ║   · Los textos van entre comillas "así".  Cuidado con borrar comas o      ║
@@ -36,6 +36,7 @@ const CONFIG = {
   /* ══════════════ 1. DATOS DE LA PAREJA ═════════════════════════════════════ */
   pareja: {
     nombreElla: "Zayra",                    // ✏️ EDITA · su nombre (sale en el sobre y arriba)
+    fotoPortada: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600",   // ✏️ EDITA · foto redonda de la portada ("" = sin foto)
     nombreEl: "Tu amor",                    // ✏️ EDITA · tu nombre: firma de la carta secreta
     fechaInicio: "2023-02-14T00:00:00",     // ✏️ EDITA · día que empezasteis. Formato AAAA-MM-DDT00:00:00
     telefonoWhatsapp: "34608832550",        // ✏️ EDITA · tu móvil con prefijo de país y SIN "+" (34 = España)
@@ -155,7 +156,8 @@ const CONFIG = {
 
   /* ══════════════ 6. JUEGO DE LA CANASTA ════════════════════════════════════
      Aparece dentro de la pestaña Secreto, después de abrir la carta.
-     Arrastra el balón hacia abajo-izquierda y suéltalo. Si acierta {aciertosParaPremio}
+     Se arrastra hacia atrás para apuntar; la canasta cambia de sitio en cada tiro
+     (posiciones en LEVELS, al principio de js/game.js). Si acierta {aciertosParaPremio}
      de {tiros}, sale el botón que te avisa por WhatsApp (el mensaje sale escrito; ella
      solo pulsa enviar).
      ═══════════════════════════════════════════════════════════════════════════ */
@@ -170,29 +172,6 @@ const CONFIG = {
     textoPremio: "Has ganado un beso gigante y una noche a tu gusto, mi amor 💋",   // ✏️ EDITA · premio al ganar
     textoFallo: "Casi… necesitas {n} aciertos para el premio. ¡Otra vez! 💪",
     mensajeWhatsApp: "¡Hola mi amor! 🏀❤️ He metido {aciertos}/{tiros} canastas en nuestro juego de aniversario. ¡Quiero mi premio! 💙"   // ✏️ EDITA · mensaje que te llega
-  },
-
-
-  /* ══════════════ 7. RULETA DE PREMIOS (pestaña Regalos) ════════════════════
-     Cada giro se puede reclamar por WhatsApp. Puedes poner entre 4 y 12 premios
-     (con 6, 8 o 10 queda mejor). Cada premio: emoji + texto.
-     ═══════════════════════════════════════════════════════════════════════════ */
-  ruleta: {
-    titulo: "La ruleta de la suerte",
-    subtitulo: "Gira y descubre tu premio 🎡",
-    boton: "¡Girar! ❤️",
-    unaVezAlDia: false,                         // true = solo un giro al día
-    premios: [                                  // ✏️ EDITA
-      { emoji: "😘", texto: "10 besos seguidos" },
-      { emoji: "🍽️", texto: "Cena donde elijas" },
-      { emoji: "💆", texto: "Masaje de 15 minutos" },
-      { emoji: "🎬", texto: "Noche de peli y mantita" },
-      { emoji: "🍫", texto: "Un antojito sorpresa" },
-      { emoji: "🫂", texto: "Abrazo de 1 minuto sin soltar" },
-      { emoji: "✈️", texto: "Escapada sorpresa" },
-      { emoji: "💌", texto: "Una carta escrita a mano" }
-    ],
-    mensajeWhatsApp: "¡Hola mi amor! ❤️ Giré la ruleta de nuestro 3er aniversario y me ha tocado: {premio} ✨ ¡Quiero mi premio!"   // {premio} se rellena solo
   },
 
 
@@ -214,15 +193,17 @@ const CONFIG = {
   },
 
 
-  /* ══════════════ 9. VALES · se canjean por WhatsApp ════════════════════════
-     icono: "heart" ❤️ · "plane" ✈️ · "sparkles" ✨ · "gift" 🎁 · "cake" 🍰 · "movie" 🍿
-     "id" tiene que ser único (vale-1, vale-2, vale-3…).
+  /* ══════════════ 9. PAREJAS · juego de memoria (pestaña Juegos) ═══════════
+     fichas: 6 u 8 elementos. Cada uno puede ser un emoji o una foto
+     ("assets/fotos/mem1.jpg"). Con fotos vuestras queda mucho mejor.
      ═══════════════════════════════════════════════════════════════════════════ */
-  vales: [
-    { id: "vale-1", titulo: "Una cena romántica donde elijas", descripcion: "Hoy mandas tú, yo solo disfruto de verte feliz 💙", icono: "heart" },      // ✏️ EDITA
-    { id: "vale-2", titulo: "Escapada de fin de semana", descripcion: "Prepara la maleta, nos vamos a crear más recuerdos ✨", icono: "plane" },
-    { id: "vale-3", titulo: "Tarde de mimos, peli y tu comida favorita", descripcion: "Sin prisas, solo tú y yo en el sofá 🧸💙", icono: "sparkles" }
-  ],
+  memoria: {
+    titulo: "Parejas",
+    subtitulo: "Encuentra las parejas en los menos intentos posibles",
+    fichas: ["🌹", "✈️", "🍕", "🎬", "🏖️", "🎁"],        // ✏️ EDITA · emojis o fotos
+    mensajeFinal: "Todas las parejas encontradas. La mejor, la nuestra.",   // ✏️ EDITA
+    mensajeWhatsApp: "He encontrado todas las parejas en {intentos} intentos 😎"
+  },
 
 
   /* ══════════════ 10. RASCA Y GANA (pestaña Inicio) ═════════════════════════
@@ -297,6 +278,17 @@ const CONFIG = {
     { id: "carta-4", emoji: "🌟", titulo: "dudes de ti", texto: "Te he visto conseguir cosas que no creías que podías.\n\nSi hoy no lo ves, fíate de mí: yo lo veo clarísimo." },
     { id: "carta-5", emoji: "😴", titulo: "no puedas dormir", texto: "Cierra los ojos y piensa en el próximo viaje que vamos a hacer.\n\nDónde, qué vamos a comer, qué foto vamos a repetir. Mañana me lo cuentas." },
     { id: "carta-6", emoji: "🎉", titulo: "tengas algo que celebrar", texto: "¡Lo sabía!\n\nEsto hay que celebrarlo como se merece. Elige sitio y día, que invito yo." }
+  ],
+
+
+  /* ══════════════ 16. ÁLBUM (pestaña Historia) ══════════════════════════════
+     Todas las fotos que quieras, con un pie opcional. Lista vacía [] = no se muestra.
+     ═══════════════════════════════════════════════════════════════════════════ */
+  galeria: [                                    // ✏️ EDITA
+    { foto: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600", pie: "El principio" },
+    { foto: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600", pie: "Aquel verano" },
+    { foto: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600", pie: "" },
+    { foto: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600", pie: "Madrid" }
   ],
 
 

@@ -45,3 +45,10 @@
 .g-score span{font-size:1.6rem;color:#7dd3fc}
 .g-row{font-size:1.4rem;letter-spacing:.2rem;margin:.4rem 0}
 .g-best{font-size:.8rem;font-weight:700;color:#4a6c94;margin:0 0 .9rem}
+
+/* v3: reglas de inicio y botón de sonido */
+.g-rules{list-style:none;margin:.6rem 0 1rem;padding:0;text-align:left;font-size:.84rem;font-weight:600;color:#4a6c94;display:grid;gap:.4rem}
+.g-rules li{padding-left:1.5rem;position:relative}
+.g-rules li::before{content:"🏀";position:absolute;left:0;top:0;font-size:.85rem}
+.g-sound{border:none;background:rgba(255,255,255,.92);color:#27476e;border-radius:999px;padding:.35rem .8rem;min-height:34px;font-weight:700;font-size:.8rem}
+#g-canvas{cursor:grab}

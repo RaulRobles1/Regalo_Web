@@ -1,6 +1,6 @@
 # ✏️ Cómo editar tu regalo (guía rápida)
 
-Todo lo personal (nombres, fotos, textos, vales, quiz, contraseña…) se cambia en **un solo sitio**. Tienes 3 formas, elige la que prefieras:
+Todo lo personal (nombres, fotos, textos, cartas, quiz, contraseña…) se cambia en **un solo sitio**. Tienes 3 formas, elige la que prefieras:
 
 | Forma | Para quién | Cómo |
 |---|---|---|
@@ -16,9 +16,9 @@ Todo lo personal (nombres, fotos, textos, vales, quiz, contraseña…) se cambia
 | Pestaña | Qué tiene |
 |---|---|
 | 💙 Inicio | Contador, nota del día, **«Tu regalo»** (lista de sorpresas por descubrir y sorpresa final) y números |
-| 📸 Historia | Línea temporal de polaroids y mapa |
+| 📸 Historia | Línea temporal de polaroids, mapa y álbum de fotos |
 | 💌 Cartas | Cartas «Abre cuando…», bote de razones y botón del amor |
-| 🎁 Regalos | Quiz, ruleta, rasca y gana y vales |
+| 🎮 Juegos | Quiz, parejas (memoria) y rasca y gana |
 | 🔐 Secreto | Carta con contraseña y, al abrirla, el juego de la canasta |
 
 La **sorpresa final** de Inicio se desbloquea cuando ella completa todas las sorpresas de la lista.
@@ -43,7 +43,7 @@ Todo está en **`js/config.js`**. Está dividido en secciones numeradas (puedes 
 
 | Quiero cambiar… | Sección de `js/config.js` | Campo |
 |---|---|---|
-| Mi teléfono de WhatsApp (donde llegan vales, premios y mensajes) | `1. DATOS DE LA PAREJA` | `telefonoWhatsapp` (con prefijo y sin `+`: `34608832550`) |
+| Mi teléfono de WhatsApp (donde llegan los mensajes) | `1. DATOS DE LA PAREJA` | `telefonoWhatsapp` (con prefijo y sin `+`: `34608832550`) |
 | Su nombre / mi nombre (firma de la carta) | `1. DATOS DE LA PAREJA` | `nombreElla` / `nombreEl` |
 | El día que empezamos (contador) | `1. DATOS DE LA PAREJA` | `fechaInicio` (`AAAA-MM-DDT00:00:00`) |
 | Título y frases de la portada | `1. DATOS DE LA PAREJA` | `tituloHeader`, `fraseHeader`, `fraseContador` |
@@ -53,11 +53,12 @@ Todo está en **`js/config.js`**. Está dividido en secciones numeradas (puedes 
 | Razones por las que la quiero | `4. BOTE DE RAZONES` | una frase por línea |
 | Preguntas del quiz y mensajes finales | `5. QUIZ DE LA RELACIÓN` | `preguntas`, `resultados`, `premio` |
 | El juego de la canasta (nº de tiros, premio, mensaje) | `6. JUEGO DE LA CANASTA` | `tiros`, `aciertosParaPremio`, `textoPremio`, `mensajeWhatsApp` |
-| Los premios de la ruleta | `7. RULETA DE PREMIOS` | `premios` |
 | Los botones de mensajes rápidos | `8. BOTÓN DEL AMOR` | `botones` |
-| Los vales | `9. VALES` | `titulo`, `descripcion`, `icono` |
 | La sorpresa del rasca y gana | `10. RASCA Y GANA` | `mensajeOculto` |
 | **Contraseña del secreto**, pista y carta | `11. SECRETO` | `passwordsValidas`, `pista`, `pistaExtra`, `mensajeSecreto`, `fotoSecreta` |
+| La foto redonda de la portada | `1. DATOS DE LA PAREJA` | `fotoPortada` (`""` = sin foto) |
+| Las fichas del juego de parejas | `9. PAREJAS` | `memoria.fichas` (emojis o fotos) |
+| Las fotos del álbum | `16. ÁLBUM` | `galeria`: `foto`, `pie` |
 | La nota que sale cada día en Inicio | `12. NOTA DEL DÍA` | `notasDelDia` (una frase por línea) |
 | Los números de «Nosotros en números» | `13. NOSOTROS EN NÚMEROS` | `numeros` (los días y horas se calculan solos) |
 | Las cartas «Abre cuando…» | `14. CARTAS «ABRE CUANDO…»` | `abreCuando`: `emoji`, `titulo`, `texto` |
@@ -88,6 +89,9 @@ Reglas para no romper nada al editar a mano:
 | Cada lugar del mapa | `lugaresMapa[…].foto` |
 | Carta secreta | `easterEgg.fotoSecreta` |
 | Pelota del juego (opcional, vacío = balón dibujado) | `juego.pelotaImg` |
+| Portada (foto redonda) | `pareja.fotoPortada` |
+| Álbum | `galeria[…].foto` |
+| Fichas de «Parejas» (opcional) | `memoria.fichas` |
 
 ⚠️ Los nombres distinguen mayúsculas: `Foto1.JPG` ≠ `foto1.jpg`. Si una ruta está mal, en su lugar sale un corazón (no se rompe nada).
 
@@ -108,7 +112,7 @@ Reglas para no romper nada al editar a mano:
 ## 4. Ver los cambios en tu ordenador
 
 - Abre `index.html` con doble clic. Casi todo funciona sin internet; solo lo necesitan las letras bonitas, el fondo del mapa y las fotos de relleno.
-- Si la web "recuerda" cosas de pruebas anteriores (vales canjeados, secreto abierto…), añade `?reset` al final de la dirección: `index.html?reset`.
+- Si la web "recuerda" cosas de pruebas anteriores (secreto abierto, juegos completados…), añade `?reset` al final de la dirección: `index.html?reset`.
 - La intro del sobre solo sale la primera vez; con `?reset` vuelve a salir.
 
 ---
