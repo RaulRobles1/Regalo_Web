@@ -8,6 +8,7 @@
   applyTheme();
   renderTimeline();
   if (typeof renderJar === 'function') renderJar();
+  if (typeof renderMore === 'function') renderMore();
   renderPlaces();
   renderVales();
   if (typeof renderQuiz === 'function') renderQuiz();
@@ -15,6 +16,8 @@
   renderScratch();
   renderSecret();
   observeReveals();
+  const h0 = location.hash.slice(1); if (h0 && TABS.includes(h0)) showTab(h0);
+  window.addEventListener('hashchange', () => { const h = location.hash.slice(1) || 'home'; if (TABS.includes(h) && !document.getElementById('tab-' + h).classList.contains('active')) showTab(h); });
   setInterval(applyTheme, 10 * 60 * 1000);
 
   /* Intro */

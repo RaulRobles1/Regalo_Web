@@ -11,6 +11,18 @@ Todo lo personal (nombres, fotos, textos, vales, quiz, contraseña…) se cambia
 > **Regla de prioridad:** lo que guarde el editor visual va en `js/config.local.js` y **gana** sobre `js/config.js`.
 > Para volver a los valores de `config.js`, deja ese archivo así: `window.CONFIG_LOCAL = {};`
 
+## Cómo está organizada la web
+
+| Pestaña | Qué tiene |
+|---|---|
+| 💙 Inicio | Contador, nota del día, **«Tu regalo»** (lista de sorpresas por descubrir y sorpresa final) y números |
+| 📸 Historia | Línea temporal de polaroids y mapa |
+| 💌 Cartas | Cartas «Abre cuando…», bote de razones y botón del amor |
+| 🎁 Regalos | Quiz, ruleta, rasca y gana y vales |
+| 🔐 Secreto | Carta con contraseña y, al abrirla, el juego de la canasta |
+
+La **sorpresa final** de Inicio se desbloquea cuando ella completa todas las sorpresas de la lista.
+
 ---
 
 ## 1. Primer día: traerte el proyecto
@@ -46,6 +58,10 @@ Todo está en **`js/config.js`**. Está dividido en secciones numeradas (puedes 
 | Los vales | `9. VALES` | `titulo`, `descripcion`, `icono` |
 | La sorpresa del rasca y gana | `10. RASCA Y GANA` | `mensajeOculto` |
 | **Contraseña del secreto**, pista y carta | `11. SECRETO` | `passwordsValidas`, `pista`, `pistaExtra`, `mensajeSecreto`, `fotoSecreta` |
+| La nota que sale cada día en Inicio | `12. NOTA DEL DÍA` | `notasDelDia` (una frase por línea) |
+| Los números de «Nosotros en números» | `13. NOSOTROS EN NÚMEROS` | `numeros` (los días y horas se calculan solos) |
+| Las cartas «Abre cuando…» | `14. CARTAS «ABRE CUANDO…»` | `abreCuando`: `emoji`, `titulo`, `texto` |
+| El mensaje de la sorpresa final | `15. SORPRESA FINAL` | `final.mensaje`, `final.mensajeWhatsApp` |
 | Colores, tamaños, animaciones | `css/` | (solo si quieres cambiar el diseño) |
 
 Reglas para no romper nada al editar a mano:
@@ -91,7 +107,7 @@ Reglas para no romper nada al editar a mano:
 
 ## 4. Ver los cambios en tu ordenador
 
-- Abre `index.html` con doble clic. Necesita internet (fuentes, mapa y confeti se cargan de internet).
+- Abre `index.html` con doble clic. Casi todo funciona sin internet; solo lo necesitan las letras bonitas, el fondo del mapa y las fotos de relleno.
 - Si la web "recuerda" cosas de pruebas anteriores (vales canjeados, secreto abierto…), añade `?reset` al final de la dirección: `index.html?reset`.
 - La intro del sobre solo sale la primera vez; con `?reset` vuelve a salir.
 

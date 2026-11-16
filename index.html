@@ -6,20 +6,28 @@
 <title>3 Años Juntos 💙</title>
 <meta name="theme-color" content="#bae6fd">
 <meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="3 años juntos ❤️">
-<meta property="og:description" content="Un regalo hecho con muchísimo cariño ✨">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tengo algo para ti ❤️">
+<meta property="og:description" content="Ábrelo cuando tengas un momento tranquilo.">
+<meta property="og:image" content="https://raulrobles1.github.io/Regalo_Web/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="3 años">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E❤️%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link rel="stylesheet" href="js/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/love.css">
 <link rel="stylesheet" href="css/desktop.css">
 <link rel="stylesheet" href="css/game.css">
 <link rel="stylesheet" href="css/scratch.css">
+<link rel="stylesheet" href="css/more.css">
 </head>
 <body>
 
@@ -43,78 +51,97 @@
   <div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div>
 </div>
 
-<main id="app" class="mx-auto min-h-screen relative overflow-x-hidden">
+<main id="app">
 
   <!-- INICIO -->
   <section id="tab-home" class="tab active">
-    <header id="header" class="text-center pt-2"></header>
+    <header id="header"></header>
+
+    <div id="daily" class="reveal"></div>
 
     <div class="divider"><span>💙 ❤️ 💙</span></div>
+    <div class="reveal">
+      <h2 class="section-title">Tu regalo</h2>
+      <p class="section-sub hand">Hay sorpresas escondidas por toda la web</p>
+    </div>
+    <div id="journey" class="reveal"></div>
 
+    <div class="divider"><span>❤️ 💙 ❤️</span></div>
+    <div class="reveal">
+      <h2 class="section-title">Nosotros en números</h2>
+      <p class="section-sub hand">Y subiendo cada día</p>
+    </div>
+    <div id="numbers" class="numbers reveal"></div>
+
+    <p class="footer hand">Hecho con ❤️ para ti</p>
+  </section>
+
+  <!-- HISTORIA -->
+  <section id="tab-historia" class="tab">
     <div class="reveal">
       <h2 class="section-title">Nuestros días importantes</h2>
-      <p class="section-sub hand">Toca cada polaroid para leer el recuerdo ✨</p>
+      <p class="section-sub hand">Toca cada polaroid para leer el recuerdo</p>
     </div>
     <div id="timeline" class="timeline"></div>
 
-    <div class="divider"><span>❤️ 💙 ❤️</span></div>
+    <div class="divider"><span>💙 ❤️ 💙</span></div>
+    <div class="reveal">
+      <h2 class="section-title">Mapa de recuerdos</h2>
+      <p class="section-sub hand">Cada corazón es un lugar nuestro</p>
+    </div>
+    <div class="map-window reveal">
+      <div class="window-bar"><i></i><i></i><i></i><span class="hand">nuestros lugares</span></div>
+      <div id="map"></div>
+    </div>
+    <div id="places" class="places"></div>
+  </section>
 
+  <!-- CARTAS -->
+  <section id="tab-cartas" class="tab">
+    <div class="reveal">
+      <h2 class="section-title">Abre cuando…</h2>
+      <p class="section-sub hand">Una carta para cada momento</p>
+    </div>
+    <div id="letters" class="letters"></div>
+
+    <div class="divider"><span>❤️ 💙 ❤️</span></div>
     <div class="reveal">
       <h2 class="section-title">El bote de razones</h2>
-      <p class="section-sub hand">Razones por las que te quiero ❤️</p>
+      <p class="section-sub hand">Por qué te quiero, una a una</p>
     </div>
     <div id="jar" class="reveal jar-box"></div>
 
-    <div class="divider sober"><span>◆</span></div>
+    <div class="divider"><span>💙 ❤️ 💙</span></div>
+    <div id="quick-box" class="reveal quick-wrap"></div>
+  </section>
 
-    <div class="reveal">
+  <!-- REGALOS -->
+  <section id="tab-vales" class="tab">
+    <nav class="subnav" aria-label="Secciones de regalos">
+      <button data-go="sec-quiz">💘 Quiz</button><button data-go="sec-ruleta">🎡 Ruleta</button><button data-go="sec-rasca">🎟️ Rasca</button><button data-go="sec-vales">🎁 Vales</button>
+    </nav>
+
+    <div id="sec-quiz" class="reveal">
+      <h2 class="section-title">Quiz de nuestra historia</h2>
+      <p class="section-sub hand" id="quiz-sub"></p>
+    </div>
+    <div id="quiz"></div>
+
+    <div class="divider"><span>❤️ 💙 ❤️</span></div>
+    <div id="sec-ruleta"></div>
+    <div id="wheel-box" class="reveal wheel-wrap-outer"></div>
+
+    <div class="divider"><span>💙 ❤️ 💙</span></div>
+    <div id="sec-rasca" class="reveal">
       <h2 class="section-title plain">Rasca y gana</h2>
       <p class="section-sub plain" id="scratch-title"></p>
     </div>
     <div id="scratch" class="reveal"></div>
 
-    <p class="footer hand">Hecho con ❤️ para ti</p>
-  </section>
-
-  <!-- MAPA -->
-  <section id="tab-map" class="tab">
-    <div class="reveal">
-      <h2 class="section-title">Mapa de recuerdos</h2>
-      <p class="section-sub hand">Cada corazón es un lugar que guardo contigo 📍</p>
-    </div>
-    <div class="map-window reveal">
-      <div class="window-bar"><i></i><i></i><i></i><span class="hand">nuestros lugares ❤️</span></div>
-      <div id="map"></div>
-    </div>
-    <div class="divider"><span>💙 ❤️ 💙</span></div>
-    <div id="places" class="places"></div>
-  </section>
-
-  <!-- QUIZ -->
-  <section id="tab-quiz" class="tab">
-    <div class="reveal">
-      <h2 class="section-title">Quiz de nuestra historia</h2>
-      <p class="section-sub hand" id="quiz-sub"></p>
-    </div>
-    <div id="quiz"></div>
-  </section>
-
-  <!-- REGALOS -->
-  <section id="tab-vales" class="tab">
-    <div class="reveal">
-      <h2 class="section-title">Regalos y mimos</h2>
-      <p class="section-sub hand">Todo lo que tengo preparado para ti 🎁</p>
-    </div>
-    <div class="gift-grid">
-      <div id="wheel-box" class="reveal"></div>
-      <div id="quick-box" class="reveal"></div>
-    </div>
-
     <div class="divider"><span>❤️ 💙 ❤️</span></div>
-
-    <div class="reveal">
+    <div id="sec-vales" class="reveal">
       <h2 class="section-title">Mis vales</h2>
-      <p class="section-sub hand">Canjea el que quieras, cuando quieras 🎟️</p>
+      <p class="section-sub hand">Canjea el que quieras, cuando quieras</p>
     </div>
     <div id="vales" class="vales"></div>
   </section>
@@ -138,8 +165,8 @@
   <div class="tabbar-inner">
     <span class="tab-ind" id="tab-ind"></span>
     <button data-tab="home" class="tab-btn active"><span class="ic">💙</span><span class="lb">Inicio</span></button>
-    <button data-tab="map" class="tab-btn"><span class="ic">📍</span><span class="lb">Mapa</span></button>
-    <button data-tab="quiz" class="tab-btn"><span class="ic">💘</span><span class="lb">Quiz</span></button>
+    <button data-tab="historia" class="tab-btn"><span class="ic">📸</span><span class="lb">Historia</span></button>
+    <button data-tab="cartas" class="tab-btn"><span class="ic">💌</span><span class="lb">Cartas</span></button>
     <button data-tab="vales" class="tab-btn"><span class="ic">🎁</span><span class="lb">Regalos</span></button>
     <button data-tab="secret" class="tab-btn"><span class="ic">🔐</span><span class="lb">Secreto</span></button>
   </div>
@@ -151,8 +178,8 @@
   <div id="modal-body"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="js/vendor/leaflet/leaflet.js"></script>
+<script src="js/vendor/confetti.js"></script>
 <script src="js/config.js"></script>
 <script src="js/config.local.js"></script>
 <script src="js/merge-config.js"></script>
@@ -160,6 +187,7 @@
 <script src="js/app.js"></script>
 <script src="js/timeline.js"></script>
 <script src="js/extras.js"></script>
+<script src="js/more.js"></script>
 <script src="js/map.js"></script>
 <script src="js/vales.js"></script>
 <script src="js/quiz.js"></script>

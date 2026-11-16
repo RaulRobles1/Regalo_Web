@@ -32,10 +32,11 @@ function renderScratch() {
 }
 
 /* ---------- estado final: premio visible ---------- */
-function showPrize() {
+function showScratchPrize() {
   const cv = $('#scratch-canvas'), fr = $('#scratch-frame'); if (!cv || !fr) return;
   fr.classList.add('done'); cv.classList.add('gone'); $('#tk-prize').classList.add('on');
   $('#tk-after').hidden = false; $('#tk-hint').textContent = 'Boleto premiado';
+  if (!store.get('rascaVisto', false)) store.set('rascaVisto', true);
   try { navigator.vibrate && navigator.vibrate(25); } catch (e) { /* sin vibración */ }
 }
 
@@ -86,7 +87,7 @@ function initScratch(cfg) {
     for (let i = 3; i < d.length; i += 24) { t++; if (d[i] < 40) c++; }
     return c / t;
   }
-  function finish() { if (done) return; done = true; showPrize(); }
+  function finish() { if (done) return; done = true; showScratchPrize(); }
   function check() { const f = cleared(); window.__scratchCleared = f; if (f >= SCRATCH_REVEAL) finish(); }
   function move(e) {
     if (!drawing || done) return;

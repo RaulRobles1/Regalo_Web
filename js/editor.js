@@ -284,6 +284,43 @@
       photo(e, 'fotoSecreta', 'Foto secreta', { cls: 'full' })));
   });
 
+  section('🗒️', 'Nota del día', 'una distinta cada día en Inicio', b => {
+    if (!S.notasDelDia) S.notasDelDia = [];
+    b.append(lines(S, 'notasDelDia', 'Notas', { rows: 9, help: 'Una por línea · sale una cada día, por orden, y luego se repiten' }));
+  });
+
+  section('🔢', 'Nosotros en números', 'días y horas se calculan solos', b => {
+    if (!S.numeros) S.numeros = [];
+    const box = h('div'); b.append(box);
+    repeater(box, S.numeros, {
+      title: (n, i) => `${i + 1}. ${n.valor} ${n.texto || ''}`, add: '➕ Añadir número', max: 9,
+      make: () => ({ valor: 1, texto: '' }),
+      render: (c, n) => {
+        const v = h('input', { type: 'text' }); v.value = n.valor;
+        v.addEventListener('input', () => { const t = v.value.trim(); n.valor = t !== '' && isFinite(Number(t)) ? Number(t) : t; touch(); });
+        c.append(h('div', { class: 'grid two' }, fld('Valor', v, 'Un número (se anima) o un texto corto como ∞'), text(n, 'texto', 'Qué significa', { ph: 'viajes juntos' })));
+      }
+    });
+  });
+
+  section('✉️', 'Cartas «Abre cuando…»', 'pestaña Cartas', b => {
+    if (!S.abreCuando) S.abreCuando = [];
+    const box = h('div'); b.append(box);
+    repeater(box, S.abreCuando, {
+      title: (c, i) => `${i + 1}. ${c.emoji || ''} Abre cuando ${c.titulo || ''}`, add: '➕ Añadir carta',
+      make: arr => ({ id: 'carta-' + Date.now().toString(36), emoji: '💌', titulo: '', texto: '' }),
+      render: (c, x) => c.append(h('div', { class: 'grid two' }, text(x, 'emoji', 'Emoji del sello'), text(x, 'titulo', 'Abre cuando…', { ph: 'me eches de menos' }),
+        text(x, 'texto', 'Carta', { area: true, rows: 6, cls: 'full' })))
+    });
+  });
+
+  section('🏁', 'Sorpresa final', 'al completar todas las sorpresas', b => {
+    if (!S.final) S.final = {};
+    const f = S.final;
+    b.append(h('div', { class: 'grid' }, text(f, 'titulo', 'Título'), text(f, 'mensaje', 'Mensaje final', { area: true, rows: 6 }),
+      text(f, 'boton', 'Texto del botón'), text(f, 'mensajeWhatsApp', 'Mensaje de WhatsApp', { area: true, rows: 2 })));
+  });
+
   /* ---------- Código QR ---------- */
   function qrCanvas(qr, cv, size) {
     const n = qr.getModuleCount(), q = 4, cell = Math.max(1, Math.floor(size / (n + 2 * q))), px = cell * (n + 2 * q);

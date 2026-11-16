@@ -87,17 +87,15 @@ const FX = (() => {
   /* Gran celebración: cañones laterales + fuegos de corazones */
   function celebrate(ms = 3500) {
     if (!window.confetti) return;
-    burst({ particleCount: 140, spread: 110, origin: { x: 0.5, y: 0.55 } });
-    const end = Date.now() + ms;
-    (function frame() {
-      burst({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0, y: 0.7 } });
-      burst({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1, y: 0.7 } });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    })();
+    burst({ particleCount: 70, spread: 100, origin: { x: 0.5, y: 0.6 } });
+    const side = setInterval(() => {
+      burst({ particleCount: 4, angle: 60, spread: 50, origin: { x: 0, y: 0.75 }, scalar: 1.3 });
+      burst({ particleCount: 4, angle: 120, spread: 50, origin: { x: 1, y: 0.75 }, scalar: 1.3 });
+    }, 220);
     const fire = setInterval(() => {
-      burst({ particleCount: 40, spread: 360, startVelocity: 25, gravity: 0.6, origin: { x: rand(0.15, 0.85), y: rand(0.15, 0.5) } });
-    }, 450);
-    setTimeout(() => clearInterval(fire), ms);
+      burst({ particleCount: 18, spread: 360, startVelocity: 22, gravity: 0.7, ticks: 140, origin: { x: rand(0.15, 0.85), y: rand(0.1, 0.35) } });
+    }, 800);
+    setTimeout(() => { clearInterval(side); clearInterval(fire); }, ms);
   }
 
   function init() {

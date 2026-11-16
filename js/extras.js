@@ -15,7 +15,7 @@ function renderJar() {
   $('#jar-btn').addEventListener('click', e => {
     const list = CONFIG.razones; let i;
     do { i = Math.floor(Math.random() * list.length); } while (list.length > 1 && i === _lastRazon);
-    _lastRazon = i;
+    _lastRazon = i; if (!store.get('razonVista', false)) store.set('razonVista', true);
     const slip = $('#jar-slip');
     slip.hidden = false;
     slip.style.animation = 'none'; void slip.offsetWidth; slip.style.animation = '';

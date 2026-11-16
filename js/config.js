@@ -9,6 +9,7 @@
    ║   3. Mapa de recuerdos            9. Vales                                ║
    ║   4. Bote de razones             10. Rasca y gana                         ║
    ║   5. Quiz de la relación         11. Secreto (contraseña y carta)         ║
+   ║  12. Nota del día   13. Números   14. Cartas «Abre cuando»   15. Final    ║
    ╠══════════════════════════════════════════════════════════════════════════╣
    ║  REGLAS RÁPIDAS                                                           ║
    ║   · Los textos van entre comillas "así".  Cuidado con borrar comas o      ║
@@ -238,6 +239,8 @@ const CONFIG = {
   },
 
 
+  /* ══════════════ 12-15 están al final del archivo (nota del día, números, cartas y sorpresa final) */
+
   /* ══════════════ 11. SECRETO · contraseña y carta (pestaña Secreto) ═══════
      La contraseña se compara SIN mayúsculas, tildes, espacios ni símbolos:
      "14/02/2023" y "14022023" cuentan igual. Pon todas las variantes que aceptes.
@@ -254,5 +257,56 @@ const CONFIG = {
     tituloSecreto: "❤️ ¡Desbloqueaste mi carta secreta! ❤️",
     mensajeSecreto: "Gracias por estos 3 años increíbles. Eres lo mejor que me ha pasado y quería dejarte este rincón secreto solo para nosotros...\n\nTe quiero hoy, mañana y siempre.",   // ✏️ EDITA · la carta
     fotoSecreta: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600"   // ✏️ EDITA · foto → "assets/fotos/secreta.jpg"
+  },
+
+
+  /* ══════════════ 12. NOTA DEL DÍA (pestaña Inicio) ══════════════════════════
+     Cada día sale una distinta, por orden, y al acabar vuelve a empezar.
+     Cuantas más pongas, más tarda en repetirse.
+     ═══════════════════════════════════════════════════════════════════════════ */
+  notasDelDia: [                                // ✏️ EDITA
+    "Hoy también te elegiría a ti.",
+    "Gracias por hacerme la vida más fácil y más divertida.",
+    "Me gusta quien soy cuando estoy contigo.",
+    "Que sepas que hoy me he acordado de ti. Varias veces.",
+    "Mi plan favorito sigue siendo cualquiera en el que estés tú.",
+    "Estoy orgulloso de ti, aunque no te lo diga lo suficiente.",
+    "Lo mejor de mi día es contártelo."
+  ],
+
+
+  /* ══════════════ 13. NOSOTROS EN NÚMEROS (pestaña Inicio) ═══════════════════
+     Los días, horas y fines de semana se calculan solos con fechaInicio.
+     Aquí añades los tuyos: valor (número o texto corto) + lo que significa.
+     ═══════════════════════════════════════════════════════════════════════════ */
+  numeros: [                                    // ✏️ EDITA
+    { valor: 12, texto: "escapadas juntos" },
+    { valor: 3, texto: "aniversarios celebrados" },
+    { valor: "∞", texto: "ganas de seguir sumando" }
+  ],
+
+
+  /* ══════════════ 14. CARTAS «ABRE CUANDO…» (pestaña Cartas) ═════════════════
+     titulo completa la frase «Abre cuando…». Añade o quita las que quieras.
+     "id" tiene que ser único. Salto de línea en el texto: \n
+     ═══════════════════════════════════════════════════════════════════════════ */
+  abreCuando: [                                 // ✏️ EDITA
+    { id: "carta-1", emoji: "🌧️", titulo: "tengas un mal día", texto: "Respira. Un mal día no es una mala vida.\n\nSea lo que sea lo que ha pasado hoy, mañana lo vemos juntos. Y si quieres, esta noche pedimos lo que más te apetezca y no hablamos de nada." },
+    { id: "carta-2", emoji: "🫶", titulo: "me eches de menos", texto: "Yo también te echo de menos, seguramente ahora mismo.\n\nMira alguna de nuestras fotos, escríbeme y cuenta los días: queda uno menos para vernos." },
+    { id: "carta-3", emoji: "😤", titulo: "estés enfadada conmigo", texto: "Seguramente tienes razón.\n\nDame un rato para darme cuenta y ven a contármelo. Prefiero mil veces arreglarlo contigo que tener razón sin ti." },
+    { id: "carta-4", emoji: "🌟", titulo: "dudes de ti", texto: "Te he visto conseguir cosas que no creías que podías.\n\nSi hoy no lo ves, fíate de mí: yo lo veo clarísimo." },
+    { id: "carta-5", emoji: "😴", titulo: "no puedas dormir", texto: "Cierra los ojos y piensa en el próximo viaje que vamos a hacer.\n\nDónde, qué vamos a comer, qué foto vamos a repetir. Mañana me lo cuentas." },
+    { id: "carta-6", emoji: "🎉", titulo: "tengas algo que celebrar", texto: "¡Lo sabía!\n\nEsto hay que celebrarlo como se merece. Elige sitio y día, que invito yo." }
+  ],
+
+
+  /* ══════════════ 15. SORPRESA FINAL (pestaña Inicio → «Tu regalo») ═════════
+     Se desbloquea cuando ella completa todas las sorpresas de la web.
+     ═══════════════════════════════════════════════════════════════════════════ */
+  final: {
+    titulo: "Lo has encontrado todo",
+    mensaje: "Has abierto cada rincón de este regalo, igual que llevas tres años abriendo cada rincón de mi vida.\n\nGracias por estos años. Me quedan muchas ganas de los siguientes.",   // ✏️ EDITA
+    boton: "Decirle que lo he completado",
+    mensajeWhatsApp: "He completado todo el regalo ❤️ Gracias por cada detalle."   // ✏️ EDITA
   }
 };

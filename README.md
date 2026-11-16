@@ -21,4 +21,4 @@ assets/qr-regalo.*    código QR para imprimir
 ```
 
 ## Probarla
-Abre `index.html` en el navegador (necesita internet para fuentes, mapa y librerías) o publícala con GitHub Pages. Añade `?reset` a la dirección para borrar el progreso guardado.
+Abre `index.html` en el navegador o publícala con GitHub Pages. Las librerías van incluidas en `js/vendor/`; internet solo hace falta para las fuentes y el fondo del mapa. Añade `?reset` a la dirección para borrar el progreso guardado.

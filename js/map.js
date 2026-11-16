@@ -14,7 +14,7 @@ function renderPlaces() {
     const b = e.target.closest('.place'); if (!b) return;
     const i = +b.dataset.i, p = CONFIG.lugaresMapa[i];
     if (_map && _markers[i]) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelector('.map-window').scrollIntoView({ behavior: 'smooth', block: 'center' });
       _map.flyTo(p.coords, 12, { duration: 1.2 });
       setTimeout(() => _markers[i].openPopup(), 1300);
     }

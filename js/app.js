@@ -11,7 +11,7 @@ const openWA = text => window.open(waLink(text), '_blank');
 
 const store = {
   get(k, d) { try { const v = localStorage.getItem('3a_' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem('3a_' + k, JSON.stringify(v)); } catch (e) { /* sin storage */ } },
+  set(k, v) { try { localStorage.setItem('3a_' + k, JSON.stringify(v)); } catch (e) { /* sin storage */ } document.dispatchEvent(new CustomEvent('regalo:cambio', { detail: k })); },
   clear() { try { Object.keys(localStorage).filter(k => k.startsWith('3a_')).forEach(k => localStorage.removeItem(k)); } catch (e) { /* ok */ } }
 };
 
@@ -77,13 +77,19 @@ function nextMonthsary(start, now) {
   return Math.round((d - today) / 86400000);
 }
 
+/* Separa los emojis del final del título para que no los tiña el degradado */
+function titleHTML(t) {
+  const m = String(t || '').match(/^(.*?)((?:\s*[\p{Extended_Pictographic}\uFE0F\u200D])+)\s*$/u);
+  return m ? esc(m[1]) + '<span class="emo">' + esc(m[2]) + '</span>' : esc(t);
+}
+
 function renderHeader() {
   const p = CONFIG.pareja;
   $('#header').innerHTML = `
     <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar modo día/noche">🌙</button>
     ${garlandSVG()}
     <p class="hand kicker">Para ti, ${esc(p.nombreElla)}</p>
-    <h1 class="main-title">${esc(p.tituloHeader)}</h1>
+    <h1 class="main-title">${titleHTML(p.tituloHeader)}</h1>
     <p class="sub">${esc(p.fraseHeader)}</p>
     <div class="counter glass">
       <span class="sp s1">✨</span><span class="sp s2">❤️</span><span class="sp s3">💙</span><span class="sp s4">✨</span>
@@ -125,15 +131,16 @@ function applyTheme() {
 }
 
 /* ---------- Pestañas (el orden debe coincidir con el de la barra inferior) ---------- */
-const TABS = ['home', 'map', 'quiz', 'vales', 'secret'];
+const TABS = ['home', 'historia', 'cartas', 'vales', 'secret'];
 function showTab(name) {
   const i = TABS.indexOf(name); if (i < 0) return;
   $$('.tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + name));
   $$('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
   $('#tab-ind').style.transform = `translateX(${i * 100}%)`;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0 });
+  try { history.replaceState(null, '', name === 'home' ? location.pathname + location.search : '#' + name); } catch (e) { /* file:// */ }
   observeReveals();
-  if (name === 'map' && typeof initMap === 'function') initMap();
+  if (name === 'historia' && typeof initMap === 'function') initMap();
 }
 
 /* ---------- Modal ---------- */
@@ -142,6 +149,7 @@ function closeModal() { $('#modal').classList.remove('show'); $('#modal-body').i
 
 function initShell() {
   $$('.tab-btn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+  $$('.subnav button').forEach(b => b.addEventListener('click', () => { const t = document.getElementById(b.dataset.go); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
   $('#modal-close').addEventListener('click', closeModal);
   $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
